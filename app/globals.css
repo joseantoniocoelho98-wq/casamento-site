@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+ body {
+    @apply bg-cream-100 text-lilac-900 font-body antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display;
+  }
+}
+
+@layer utilities {
+  /* Contêiner padrão usado em todas as seções do site */
+  .section-container {
+    @apply mx-auto max-w-6xl px-6 md:px-10;
+  }
+
+  /* Espaçamento vertical padrão entre seções */
+  .section-padding {
+    @apply py-20 md:py-28;
+  }
+}

@@ -1,0 +1,41 @@
+'use client';
+
+import { motion } from 'framer-motion';
+import { storyItems } from '@/lib/storyData';
+import TimelineCard from './TimelineCard';
+
+export default function OurStory() {
+  return (
+    <section id="historia" className="bg-white section-padding">
+      <div className="section-container">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.7 }}
+          className="text-center mb-16 md:mb-24"
+        >
+          <span className="text-sm uppercase tracking-widest text-lilac-600">
+            Nossa jornada
+          </span>
+          <h2 className="text-4xl md:text-5xl text-lilac-900 mt-3">
+            Nossa História
+          </h2>
+        </motion.div>
+
+        <div className="relative flex flex-col gap-16 md:gap-24">
+          {/* Linha vertical central — só aparece em telas médias/grandes */}
+          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-lilac-200 -translate-x-1/2" />
+
+          {storyItems.map((item, index) => (
+            <TimelineCard
+              key={item.id}
+              item={item}
+              align={index % 2 === 0 ? 'left' : 'right'}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
