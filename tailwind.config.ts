@@ -14,20 +14,33 @@ const config: Config = {
           100: '#FFFBEB',
           200: '#FEF6D2',
           300: '#FDF0B4',
-          400: '#FCEEA8', // cor-base solicitada
+          400: '#FCEEA8',
           500: '#F7E27A',
           600: '#EAC94D',
           700: '#C9A62F',
           800: '#9C7F22',
           900: '#6B5716',
         },
-        // Paleta secundária — lilás pastel
+        // Amarelo Manteiga — substitui o lilás em fundos, botões e elementos decorativos
+        butter: {
+          50: '#FFFBEA',
+          100: '#FFF3C4',
+          200: '#FCE588',
+          300: '#FADB5F',
+          400: '#F7C948',
+          500: '#F0B429',
+          600: '#DE911D',
+          700: '#B45309',
+          800: '#92400E',
+          900: '#78350F',
+        },
+        // Paleta secundária — lilás pastel (mantido apenas em textos)
         lilac: {
           50: '#FAF7FC',
           100: '#F3EDF9',
           200: '#E9DEF3',
           300: '#DFCFEC',
-          400: '#D9C9E9', // cor-base solicitada (Pastel Lilac)
+          400: '#D9C9E9',
           500: '#C3A8DB',
           600: '#A67FC4',
           700: '#855FA0',
@@ -36,7 +49,6 @@ const config: Config = {
         },
       },
       fontFamily: {
-        // Serifada elegante para títulos, sans limpa para o corpo do texto
         display: ['var(--font-display)', 'cursive'],
         body: ['var(--font-inter)', 'sans-serif'],
       },
