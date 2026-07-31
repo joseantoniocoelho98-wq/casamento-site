@@ -24,13 +24,13 @@ export default function Hero() {
           alt="Foto do casal"
           fill
           priority
-          className="object-cover scale-105 blur-[3px]"
+          className="object-cover scale-105 blur-[6px]"
           onError={() => setImageFailed(true)}
         />
       ) : (
         <div className="absolute inset-0 bg-gradient-to-br from-cream-300 via-cream-200 to-butter-300" />
       )}
-      <div className="absolute inset-0 bg-white/30" />
+      <div className="absolute inset-0 bg-white/55" />
 
       <div className="relative z-10 section-container text-center flex flex-col items-center gap-8 py-24">
         {!logoFailed && (
@@ -49,15 +49,6 @@ export default function Hero() {
             />
           </motion.div>
         )}
-
-        <motion.p
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="uppercase tracking-[0.3em] text-sm md:text-base text-lilac-700"
-        >
-          Estamos nos casando
-        </motion.p>
 
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
