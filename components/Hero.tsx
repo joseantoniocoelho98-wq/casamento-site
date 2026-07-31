@@ -38,7 +38,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
-            className="relative w-20 h-20 md:w-28 md:h-28"
+            className="relative w-32 h-32 md:w-48 md:h-48"
           >
             <Image
               src="/images/logo.png"
