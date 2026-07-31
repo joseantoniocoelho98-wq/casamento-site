@@ -63,7 +63,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="text-2xl md:text-3xl font-display text-butter-600"
+          className="text-lg md:text-xl font-body text-butter-600"
         >
           28.02.2027
         </motion.p>
