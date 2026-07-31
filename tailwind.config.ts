@@ -8,7 +8,6 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Paleta principal do site — amarelo pastel suave
         cream: {
           50: '#FFFEF7',
           100: '#FFFBEB',
@@ -21,20 +20,18 @@ const config: Config = {
           800: '#9C7F22',
           900: '#6B5716',
         },
-        // Amarelo Manteiga — substitui o lilás em fundos, botões e elementos decorativos
         butter: {
-          50: '#FFFBEA',
-          100: '#FFF3C4',
-          200: '#FCE588',
-          300: '#FADB5F',
+          50: '#FFFDF3',
+          100: '#FFF6D6',
+          200: '#FEEBA8',
+          300: '#FCDD73',
           400: '#F7C948',
           500: '#F0B429',
-          600: '#DE911D',
-          700: '#B45309',
-          800: '#92400E',
-          900: '#78350F',
+          600: '#D9A521',
+          700: '#B8860B',
+          800: '#8C6508',
+          900: '#5C4305',
         },
-        // Paleta secundária — lilás pastel (mantido apenas em textos)
         lilac: {
           50: '#FAF7FC',
           100: '#F3EDF9',

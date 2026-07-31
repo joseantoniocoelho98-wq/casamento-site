@@ -10,10 +10,10 @@ interface CountdownTimerProps {
 function TimeBlock({ value, label }: { value: number; label: string }) {
   return (
     <div className="flex flex-col items-center">
-      <span className="text-3xl md:text-5xl font-body font-semibold text-butter-800 tabular-nums">
+      <span className="text-3xl md:text-5xl font-body font-semibold text-butter-600 tabular-nums">
         {String(value).padStart(2, '0')}
       </span>
-      <span className="mt-2 text-xs md:text-sm uppercase tracking-widest text-butter-700/80">
+      <span className="mt-2 text-xs md:text-sm uppercase tracking-widest text-butter-600/70">
         {label}
       </span>
     </div>

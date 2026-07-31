@@ -54,16 +54,16 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.15 }}
-          className="text-5xl md:text-7xl lg:text-8xl text-butter-800 leading-tight"
+          className="text-5xl md:text-7xl lg:text-8xl text-butter-600 leading-tight"
         >
-          José <span className="text-butter-500 italic">&</span> Ianca
+          José <span className="text-butter-600 italic">&</span> Ianca
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="text-lg md:text-xl text-butter-700"
+          className="text-2xl md:text-3xl font-display text-butter-600"
         >
           28.02.2027
         </motion.p>
@@ -72,10 +72,10 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.5 }}
-          className="max-w-xl text-xl md:text-2xl font-display text-butter-700 leading-relaxed"
+          className="max-w-xl text-xl md:text-2xl font-display text-butter-600 leading-relaxed"
         >
           &ldquo;Portanto, o que Deus uniu, ninguém separe.&rdquo;
-          <span className="block font-body not-italic text-sm mt-2 tracking-wide text-butter-600">
+          <span className="block font-display not-italic text-lg mt-2 tracking-wide text-butter-600">
             Marcos 10:9
           </span>
         </motion.blockquote>
