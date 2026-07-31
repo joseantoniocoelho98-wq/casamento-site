@@ -6,7 +6,7 @@ import type { VenueInfo } from '@/lib/venueData';
 
 interface VenueSectionProps extends VenueInfo {
   id: string;
-  background?: 'cream' | 'lilac';
+  background?: 'cream' | 'butter';
 }
 
 export default function VenueSection({
@@ -26,7 +26,7 @@ export default function VenueSection({
     <section
       id={id}
       className={`section-padding ${
-        background === 'lilac' ? 'bg-lilac-100' : 'bg-cream-100'
+        background === 'butter' ? 'bg-butter-100' : 'bg-cream-100'
       }`}
     >
       <div className="section-container grid md:grid-cols-2 gap-10 md:gap-16 items-center">
@@ -45,24 +45,24 @@ export default function VenueSection({
 
           <div className="space-y-4 text-lilac-700">
             <div className="flex items-center gap-3">
-              <Calendar size={20} className="text-lilac-500 shrink-0" />
+              <Calendar size={20} className="text-butter-600 shrink-0" />
               <span>{date}</span>
             </div>
             <div className="flex items-center gap-3">
-              <Clock size={20} className="text-lilac-500 shrink-0" />
+              <Clock size={20} className="text-butter-600 shrink-0" />
               <span>{time}</span>
             </div>
             <div className="flex items-center gap-3">
-              <MapPin size={20} className="text-lilac-500 shrink-0" />
+              <MapPin size={20} className="text-butter-600 shrink-0" />
               <span>{address}</span>
             </div>
           </div>
 
-          <a
+          
             href={mapsLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-8 inline-flex items-center gap-2 bg-lilac-700 hover:bg-lilac-800 text-white px-6 py-3 rounded-full shadow-soft transition-colors duration-300 text-sm tracking-wide"
+            className="mt-8 inline-flex items-center gap-2 bg-butter-600 hover:bg-butter-700 text-white px-6 py-3 rounded-full shadow-soft transition-colors duration-300 text-sm tracking-wide"
           >
             Abrir no Google Maps
             <ExternalLink size={16} />
