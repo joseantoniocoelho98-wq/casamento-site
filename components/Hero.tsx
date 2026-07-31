@@ -75,8 +75,9 @@ export default function Hero() {
           className="max-w-xl text-xl md:text-2xl font-display text-butter-600 leading-relaxed"
         >
           &ldquo;Portanto, o que Deus uniu, ninguém separe.&rdquo;
-          <span className="block font-display not-italic text-lg mt-2 tracking-wide text-butter-600">
-            Marcos 10:9
+          <span className="block not-italic text-sm mt-2 tracking-wide text-butter-600">
+            <span className="font-display text-lg">Marcos</span>{' '}
+            <span className="font-body">10:9</span>
           </span>
         </motion.blockquote>
 
