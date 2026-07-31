@@ -9,7 +9,7 @@ export default function Home() {
       <Hero />
       <OurStory />
       <VenueSection id="cerimonia" background="cream" {...ceremonyInfo} />
-      <VenueSection id="recepcao" background="lilac" {...receptionInfo} />
+      <VenueSection id="recepcao" background="butter" {...receptionInfo} />
       {/* Próximas seções (Presentes, Lua de Mel...) entram aqui
           nas próximas etapas, uma abaixo da outra */}
     </main>
