@@ -1,11 +1,13 @@
 import type { Metadata } from 'next';
-import { Playfair_Display, Inter } from 'next/font/google';
+import { Inter } from 'next/font/google';
+import localFont from 'next/font/local';
 import './globals.css';
 
-// Fonte serifada para títulos — dá o tom elegante/editorial
-const playfair = Playfair_Display({
-  subsets: ['latin'],
-  variable: '--font-playfair',
+// Fonte de títulos e nomes — arquivo local, baixado manualmente
+// (não está disponível no Google Fonts). Uso pessoal.
+const verandah = localFont({
+  src: '../public/fonts/VerandahReverie.otf',
+  variable: '--font-display',
   display: 'swap',
 });
 
@@ -24,7 +26,7 @@ export const metadata: Metadata = {
     title: 'José & Ianca | Nosso Casamento',
     description:
       'Confira todos os detalhes do nosso casamento e confirme sua presença.',
-    images: ['/og-image.jpg'], // será substituída na etapa de conteúdo/fotos
+    images: ['/og-image.jpg'],
     type: 'website',
   },
   icons: {
@@ -38,7 +40,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR" className={`${playfair.variable} ${inter.variable}`}>
+    <html lang="pt-BR" className={`${verandah.variable} ${inter.variable}`}>
       <body>{children}</body>
     </html>
   );

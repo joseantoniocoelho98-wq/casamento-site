@@ -24,7 +24,7 @@ export default function Hero() {
           alt="Foto do casal"
           fill
           priority
-          className="object-cover"
+          className="object-cover scale-105 blur-[3px]"
           onError={() => setImageFailed(true)}
         />
       ) : (
