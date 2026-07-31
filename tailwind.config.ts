@@ -37,7 +37,7 @@ const config: Config = {
       },
       fontFamily: {
         // Serifada elegante para títulos, sans limpa para o corpo do texto
-        display: ['var(--font-playfair)', 'serif'],
+        display: ['var(--font-display)', 'cursive'],
         body: ['var(--font-inter)', 'sans-serif'],
       },
       borderRadius: {
