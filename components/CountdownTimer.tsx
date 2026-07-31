@@ -13,7 +13,7 @@ function TimeBlock({ value, label }: { value: number; label: string }) {
   return (
     <div className="flex flex-col items-center">
       <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-soft px-4 py-3 md:px-6 md:py-4 min-w-[70px] md:min-w-[90px]">
-        <span className="text-3xl md:text-5xl font-display text-lilac-800 tabular-nums">
+        <span className="text-3xl md:text-5xl font-body font-semibold text-lilac-800 tabular-nums">
           {String(value).padStart(2, '0')}
         </span>
       </div>
