@@ -44,7 +44,7 @@ export default function Hero() {
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
           onClick={scrollToRSVP}
-          className="bg-butter-600 hover:bg-butter-700 text-white px-8 py-4 rounded-full shadow-soft transition-colors duration-300 text-sm md:text-base tracking-wide"
+          className="border border-white/70 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white px-8 py-4 rounded-full transition-colors duration-300 text-sm md:text-base tracking-wide"
         >
           Confirmar presença
         </motion.button>
