@@ -51,7 +51,7 @@ export default function VenueSection({
             </div>
           </div>
 
-          
+          <a
             href={mapsLink}
             target="_blank"
             rel="noopener noreferrer"
