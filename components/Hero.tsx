@@ -95,7 +95,7 @@ function HeroPhoto() {
 
 function HeroCountdownSection() {
   return (
-    <div className="bg-[#F6E9B3] py-16 md:py-20 flex flex-col items-center gap-8">
+    <div className="py-16 md:py-20 flex flex-col items-center gap-8">
       <CountdownTimer targetDate={WEDDING_DATE} />
 
       <motion.button

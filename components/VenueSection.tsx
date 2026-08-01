@@ -6,7 +6,6 @@ import type { VenueInfo } from '@/lib/venueData';
 
 interface VenueSectionProps extends VenueInfo {
   id: string;
-  background?: 'cream' | 'butter';
 }
 
 export default function VenueSection({
@@ -16,19 +15,13 @@ export default function VenueSection({
   date,
   time,
   address,
-  background = 'cream',
 }: VenueSectionProps) {
   const encodedAddress = encodeURIComponent(address);
   const mapEmbedSrc = `https://www.google.com/maps?q=${encodedAddress}&output=embed`;
   const mapsLink = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
 
   return (
-    <section
-      id={id}
-      className={`section-padding ${
-        background === 'butter' ? 'bg-butter-100' : 'bg-cream-100'
-      }`}
-    >
+    <section id={id} className="section-padding">
       <div className="section-container grid md:grid-cols-2 gap-10 md:gap-16 items-center">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
@@ -58,7 +51,7 @@ export default function VenueSection({
             </div>
           </div>
 
-          <a
+          
             href={mapsLink}
             target="_blank"
             rel="noopener noreferrer"

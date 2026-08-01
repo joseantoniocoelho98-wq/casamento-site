@@ -6,7 +6,7 @@ import TimelineCard from './TimelineCard';
 
 export default function OurStory() {
   return (
-    <section id="historia" className="bg-white section-padding">
+    <section id="historia" className="section-padding">
       <div className="section-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -24,8 +24,7 @@ export default function OurStory() {
         </motion.div>
 
         <div className="relative flex flex-col gap-16 md:gap-24">
-          {/* Linha vertical central — só aparece em telas médias/grandes */}
-          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-lilac-200 -translate-x-1/2" />
+          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-butter-300 -translate-x-1/2" />
 
           {storyItems.map((item, index) => (
             <TimelineCard
