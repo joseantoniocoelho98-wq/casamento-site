@@ -27,12 +27,12 @@ export default function Hero() {
       )}
       <div className="absolute inset-0 bg-black/50" />
 
-      <div className="relative z-10 section-container text-center flex flex-col items-center gap-8">
+      <div className="absolute z-10 inset-x-0 bottom-12 md:bottom-16 section-container text-center flex flex-col items-center gap-6">
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="text-lg md:text-xl font-body text-white"
+          className="text-2xl md:text-3xl font-display text-white"
         >
           28.02.2027
         </motion.p>
@@ -44,7 +44,7 @@ export default function Hero() {
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
           onClick={scrollToRSVP}
-          className="border border-white/70 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white px-8 py-4 rounded-full transition-colors duration-300 text-sm md:text-base tracking-wide"
+          className="border border-white/70 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white px-8 py-4 rounded-full transition-colors duration-300 text-base md:text-lg tracking-wide"
         >
           Confirmar presença
         </motion.button>

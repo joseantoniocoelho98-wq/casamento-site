@@ -15,7 +15,7 @@ export default function VerseSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.8 }}
-          className="text-2xl md:text-3xl font-display text-lilac-900 leading-relaxed"
+          className="text-3xl md:text-4xl font-display text-butter-700 leading-relaxed"
         >
           &ldquo;Portanto, o que Deus uniu, ninguém separe.&rdquo;
         </motion.blockquote>
@@ -45,10 +45,10 @@ export default function VerseSection() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-sm tracking-widest uppercase text-lilac-600"
+          className="text-base tracking-widest uppercase text-butter-700"
         >
-          <span className="font-display text-lg normal-case">Marcos</span>{' '}
-          <span className="font-body">10:9</span>
+          <span className="font-display text-xl normal-case">Marcos</span>{' '}
+          <span className="font-display normal-case">10:9</span>
         </motion.span>
       </div>
     </section>

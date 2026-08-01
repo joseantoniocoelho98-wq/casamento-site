@@ -42,13 +42,13 @@ export default function TimelineCard({ item, align }: TimelineCardProps) {
       <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-butter-500 border-4 border-cream-50 shadow-soft" />
 
       <div className="w-full md:w-1/2 text-center md:text-left">
-        <span className="text-xs uppercase tracking-widest text-lilac-600">
+        <span className="text-base uppercase tracking-widest font-display text-butter-700">
           {item.date}
         </span>
-        <h3 className="text-2xl md:text-3xl text-lilac-900 mt-2 mb-3">
+        <h3 className="text-3xl md:text-4xl text-butter-700 mt-2 mb-3">
           {item.title}
         </h3>
-        <p className="text-lilac-700 leading-relaxed">{item.description}</p>
+        <p className="text-lg text-butter-700 leading-relaxed">{item.description}</p>
       </div>
     </motion.div>
   );

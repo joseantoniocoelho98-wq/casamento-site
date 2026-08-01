@@ -8,7 +8,7 @@
   }
 
   body {
-    @apply text-lilac-900 font-body antialiased;
+    @apply text-butter-700 font-body text-lg antialiased;
     background-color: #FAF3D8;
   }
 

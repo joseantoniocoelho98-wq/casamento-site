@@ -29,29 +29,29 @@ export default function VenueSection({
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.7 }}
         >
-          <span className="text-sm uppercase tracking-widest text-lilac-600">
+          <span className="text-base uppercase tracking-widest text-butter-700">
             {eyebrow}
           </span>
-          <h2 className="text-4xl md:text-5xl text-lilac-900 mt-3 mb-8">
+          <h2 className="text-5xl md:text-6xl text-butter-700 mt-3 mb-8">
             {title}
           </h2>
 
-          <div className="space-y-4 text-lilac-700">
+          <div className="space-y-4 text-lg text-butter-700">
             <div className="flex items-center gap-3">
-              <Calendar size={20} className="text-butter-600 shrink-0" />
-              <span>{date}</span>
+              <Calendar size={22} className="text-butter-600 shrink-0" />
+              <span className="font-display text-xl">{date}</span>
             </div>
             <div className="flex items-center gap-3">
-              <Clock size={20} className="text-butter-600 shrink-0" />
-              <span>{time}</span>
+              <Clock size={22} className="text-butter-600 shrink-0" />
+              <span className="font-display text-xl">{time}</span>
             </div>
             <div className="flex items-center gap-3">
-              <MapPin size={20} className="text-butter-600 shrink-0" />
+              <MapPin size={22} className="text-butter-600 shrink-0" />
               <span>{address}</span>
             </div>
           </div>
 
-          <a
+          
             href={mapsLink}
             target="_blank"
             rel="noopener noreferrer"
