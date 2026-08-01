@@ -30,7 +30,7 @@ export default function Hero() {
       ) : (
         <div className="absolute inset-0 bg-gradient-to-br from-cream-300 via-cream-200 to-butter-300" />
       )}
-      <div className="absolute inset-0 bg-white/55" />
+      <div className="absolute inset-0 bg-black/50" />
 
       <div className="relative z-10 section-container text-center flex flex-col items-center gap-8 py-24">
         {!logoFailed && (
@@ -54,16 +54,16 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.15 }}
-          className="text-5xl md:text-7xl lg:text-8xl text-butter-600 leading-tight"
+          className="text-5xl md:text-7xl lg:text-8xl text-white leading-tight"
         >
-          José <span className="text-butter-600 italic">&</span> Ianca
+          José <span className="text-white italic">&</span> Ianca
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="text-lg md:text-xl font-body text-butter-600"
+          className="text-lg md:text-xl font-body text-white"
         >
           28.02.2027
         </motion.p>
@@ -72,34 +72,36 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.5 }}
-          className="max-w-xl text-xl md:text-2xl font-display text-butter-600 leading-relaxed"
+          className="max-w-xl text-xl md:text-2xl font-display text-white leading-relaxed"
         >
           &ldquo;Portanto, o que Deus uniu, ninguém separe.&rdquo;
-          <span className="block not-italic text-sm mt-2 tracking-wide text-butter-600">
+          <span className="block not-italic text-sm mt-2 tracking-wide text-white">
             <span className="font-display text-lg">Marcos</span>{' '}
             <span className="font-body">10:9</span>
           </span>
         </motion.blockquote>
 
-        <CountdownTimer targetDate={WEDDING_DATE} />
+        <div className="mt-10 md:mt-16 flex flex-col items-center gap-8">
+          <CountdownTimer targetDate={WEDDING_DATE} />
 
-        <motion.button
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.7 }}
-          whileHover={{ scale: 1.03 }}
-          whileTap={{ scale: 0.97 }}
-          onClick={scrollToRSVP}
-          className="mt-4 bg-butter-600 hover:bg-butter-700 text-white px-8 py-4 rounded-full shadow-soft transition-colors duration-300 text-sm md:text-base tracking-wide"
-        >
-          Confirmar presença
-        </motion.button>
+          <motion.button
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.7 }}
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            onClick={scrollToRSVP}
+            className="bg-butter-600 hover:bg-butter-700 text-white px-8 py-4 rounded-full shadow-soft transition-colors duration-300 text-sm md:text-base tracking-wide"
+          >
+            Confirmar presença
+          </motion.button>
+        </div>
       </div>
 
       <motion.div
         animate={{ y: [0, 8, 0] }}
         transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-butter-600"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white"
       >
         <ChevronDown size={28} />
       </motion.div>
