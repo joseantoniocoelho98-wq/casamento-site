@@ -14,20 +14,4 @@ export default function Home() {
           nas próximas etapas, uma abaixo da outra */}
     </main>
   );
-}import Hero from '@/components/Hero';
-import OurStory from '@/components/OurStory';
-import VenueSection from '@/components/VenueSection';
-import { ceremonyInfo, receptionInfo } from '@/lib/venueData';
-
-export default function Home() {
-  return (
-    <main>
-      <Hero />
-      <OurStory />
-      <VenueSection id="cerimonia" {...ceremonyInfo} />
-      <VenueSection id="recepcao" {...receptionInfo} />
-      {/* Próximas seções (Presentes, Lua de Mel...) entram aqui
-          nas próximas etapas, uma abaixo da outra */}
-    </main>
-  );
 }
