@@ -12,7 +12,7 @@ function scrollToRSVP() {
   document.getElementById('rsvp')?.scrollIntoView({ behavior: 'smooth' });
 }
 
-export default function Hero() {
+function HeroPhoto() {
   const [imageFailed, setImageFailed] = useState(false);
   const [logoFailed, setLogoFailed] = useState(false);
 
@@ -80,22 +80,6 @@ export default function Hero() {
             <span className="font-body">10:9</span>
           </span>
         </motion.blockquote>
-
-        <div className="mt-10 md:mt-16 flex flex-col items-center gap-8">
-          <CountdownTimer targetDate={WEDDING_DATE} />
-
-          <motion.button
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.7 }}
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            onClick={scrollToRSVP}
-            className="bg-butter-600 hover:bg-butter-700 text-white px-8 py-4 rounded-full shadow-soft transition-colors duration-300 text-sm md:text-base tracking-wide"
-          >
-            Confirmar presença
-          </motion.button>
-        </div>
       </div>
 
       <motion.div
@@ -106,5 +90,35 @@ export default function Hero() {
         <ChevronDown size={28} />
       </motion.div>
     </section>
+  );
+}
+
+function HeroCountdownSection() {
+  return (
+    <div className="bg-[#F6E9B3] py-16 md:py-20 flex flex-col items-center gap-8">
+      <CountdownTimer targetDate={WEDDING_DATE} />
+
+      <motion.button
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.6 }}
+        transition={{ duration: 0.6 }}
+        whileHover={{ scale: 1.03 }}
+        whileTap={{ scale: 0.97 }}
+        onClick={scrollToRSVP}
+        className="bg-butter-600 hover:bg-butter-700 text-white px-8 py-4 rounded-full shadow-soft transition-colors duration-300 text-sm md:text-base tracking-wide"
+      >
+        Confirmar presença
+      </motion.button>
+    </div>
+  );
+}
+
+export default function Hero() {
+  return (
+    <>
+      <HeroPhoto />
+      <HeroCountdownSection />
+    </>
   );
 }
