@@ -8,7 +8,7 @@
   }
 
   body {
-    @apply text-butter-700 font-body text-lg antialiased;
+    @apply text-butter-700 font-body text-xl antialiased;
     background-color: #FAF3D8;
   }
 

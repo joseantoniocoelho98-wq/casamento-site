@@ -29,25 +29,25 @@ export default function VenueSection({
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.7 }}
         >
-          <span className="text-base uppercase tracking-widest text-butter-700">
+          <span className="text-lg uppercase tracking-widest text-butter-700">
             {eyebrow}
           </span>
-          <h2 className="text-5xl md:text-6xl text-butter-700 mt-3 mb-8">
+          <h2 className="text-6xl md:text-7xl text-butter-700 mt-3 mb-8">
             {title}
           </h2>
 
-          <div className="space-y-4 text-lg text-butter-700">
+          <div className="space-y-4 text-xl text-butter-700">
             <div className="flex items-center gap-3">
-              <Calendar size={22} className="text-butter-600 shrink-0" />
-              <span className="font-display text-xl">{date}</span>
+              <Calendar size={24} className="text-butter-600 shrink-0" />
+              <span className="font-display text-2xl">{date}</span>
             </div>
             <div className="flex items-center gap-3">
-              <Clock size={22} className="text-butter-600 shrink-0" />
-              <span className="font-display text-xl">{time}</span>
+              <Clock size={24} className="text-butter-600 shrink-0" />
+              <span className="font-display text-2xl">{time}</span>
             </div>
             <div className="flex items-center gap-3">
-              <MapPin size={22} className="text-butter-600 shrink-0" />
-              <span>{address}</span>
+              <MapPin size={24} className="text-butter-600 shrink-0" />
+              <span className="font-display text-2xl">{address}</span>
             </div>
           </div>
 
