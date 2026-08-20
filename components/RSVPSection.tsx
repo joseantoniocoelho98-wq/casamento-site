@@ -1,12 +1,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Check, PartyPopper } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import { supabase } from '@/lib/supabaseClient';
 
-const EMAILJS_SERVICE_ID = 'service_sri6';
+const EMAILJS_SERVICE_ID = 'service_sri61lu';
 const EMAILJS_TEMPLATE_ID = 'template_k9ypir8';
 const EMAILJS_PUBLIC_KEY = 'R2urcDeUIKREyQo80';
 
@@ -23,8 +23,8 @@ export default function RSVPSection() {
   const [results, setResults] = useState<Guest[]>([]);
   const [selected, setSelected] = useState<Guest | null>(null);
   const [confirming, setConfirming] = useState(false);
-  const [done, setDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [confirmedThisSession, setConfirmedThisSession] = useState<string[]>([]);
 
   useEffect(() => {
     if (query.trim().length < 2) {
@@ -76,22 +76,11 @@ export default function RSVPSection() {
       console.error('Erro ao enviar e-mail:', e);
     }
 
+    setConfirmedThisSession((prev) => [...prev, selected.full_name]);
+    setSelected(null);
+    setQuery('');
+    setResults([]);
     setConfirming(false);
-    setDone(true);
-  }
-
-  if (done) {
-    return (
-      <section id="rsvp" className="section-padding">
-        <div className="section-container flex flex-col items-center text-center gap-4 max-w-lg mx-auto">
-          <PartyPopper className="text-butter-600" size={48} />
-          <h2 className="text-5xl text-butter-700">Presença confirmada!</h2>
-          <p className="text-xl text-butter-700">
-            Obrigado, {selected?.full_name}! Mal podemos esperar para celebrar com você.
-          </p>
-        </div>
-      </section>
-    );
   }
 
   return (
@@ -102,7 +91,24 @@ export default function RSVPSection() {
             Confirme sua presença
           </span>
           <h2 className="text-6xl md:text-7xl text-butter-700 mt-3">RSVP</h2>
+          <p className="text-xl text-butter-700 mt-4">
+            Vai levar acompanhantes? Digite o nome de cada um, um de cada vez.
+          </p>
         </div>
+
+        {confirmedThisSession.length > 0 && (
+          <div className="w-full flex flex-col gap-2">
+            {confirmedThisSession.map((name) => (
+              <div
+                key={name}
+                className="flex items-center gap-2 px-6 py-3 rounded-xl bg-butter-100 text-butter-700 text-lg"
+              >
+                <Check size={18} className="text-butter-600 shrink-0" />
+                {name}
+              </div>
+            ))}
+          </div>
+        )}
 
         <div className="relative w-full">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-butter-500" size={20} />
@@ -113,7 +119,7 @@ export default function RSVPSection() {
               setQuery(e.target.value);
               setSelected(null);
             }}
-            placeholder="Digite seu nome e sobrenome"
+            placeholder="Digite o nome e sobrenome"
             className="w-full pl-12 pr-4 py-4 rounded-full border border-butter-300 bg-white text-butter-700 text-lg focus:outline-none focus:ring-2 focus:ring-butter-500"
           />
         </div>
@@ -141,28 +147,42 @@ export default function RSVPSection() {
           </p>
         )}
 
-        {selected && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="w-full flex flex-col items-center gap-4 bg-white rounded-2xl shadow-soft p-6"
-          >
-            <p className="text-xl text-butter-700">
-              Confirmar presença de <strong>{selected.full_name}</strong>?
-            </p>
+        <AnimatePresence>
+          {selected && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="w-full flex flex-col items-center gap-4 bg-white rounded-2xl shadow-soft p-6"
+            >
+              <p className="text-xl text-butter-700">
+                Confirmar presença de <strong>{selected.full_name}</strong>?
+              </p>
 
-            {selected.confirmed ? (
-              <p className="text-butter-600">Essa presença já foi confirmada anteriormente 🎉</p>
-            ) : (
-              <button
-                onClick={handleConfirm}
-                disabled={confirming}
-                className="inline-flex items-center gap-2 bg-butter-600 hover:bg-butter-700 text-white px-8 py-4 rounded-full shadow-soft transition-colors duration-300 text-lg tracking-wide disabled:opacity-60"
-              >
-                <Check size={20} />
-                {confirming ? 'Confirmando...' : 'Confirmar presença'}
-              </button>
-            )}
+              {selected.confirmed ? (
+                <p className="text-butter-600">Essa presença já foi confirmada anteriormente 🎉</p>
+              ) : (
+                <button
+                  onClick={handleConfirm}
+                  disabled={confirming}
+                  className="inline-flex items-center gap-2 bg-butter-600 hover:bg-butter-700 text-white px-8 py-4 rounded-full shadow-soft transition-colors duration-300 text-lg tracking-wide disabled:opacity-60"
+                >
+                  <Check size={20} />
+                  {confirming ? 'Confirmando...' : 'Confirmar presença'}
+                </button>
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {confirmedThisSession.length > 0 && !selected && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="flex items-center gap-2 text-butter-700 text-lg"
+          >
+            <PartyPopper size={22} className="text-butter-600" />
+            Obrigado! Pode digitar mais um nome acima, se precisar.
           </motion.div>
         )}
 
