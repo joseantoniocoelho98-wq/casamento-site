@@ -15,7 +15,8 @@
     "framer-motion": "^11.3.19",
     "lucide-react": "^0.427.0",
     "@supabase/supabase-js": "^2.45.4",
-    "qrcode.react": "^3.1.0"
+    "qrcode.react": "^3.1.0",
+    "@emailjs/browser": "^4.4.1"
   },
   "devDependencies": {
     "typescript": "^5.5.4",
