@@ -53,8 +53,8 @@ export const guideItems: GuideItem[] = [
   {
     id: '6',
     icon: Palette,
-    title: 'Branco, amarelo e lilás são as cores da noiva',
-    description: 'pedimos gentilmente para evitar essas cores no seu look.',
+    title: 'Branco é a cor da noiva',
+    description: 'pedimos gentilmente para evitar essa cor no seu look. Assim como amarelo e lilás',
   },
   {
     id: '7',
