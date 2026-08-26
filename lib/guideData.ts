@@ -1,5 +1,16 @@
 import type { LucideIcon } from 'lucide-react';
-import { Clock, MailX, Palette, MessageCircle, Heart, PartyPopper, Wine, Shirt } from 'lucide-react';
+import {
+  CheckCircle2,
+  Church,
+  PartyPopper,
+  Cake,
+  MailX,
+  Clock,
+  Camera,
+  Heart,
+  Shirt,
+  Palette,
+} from 'lucide-react';
 
 export interface GuideItem {
   id: string;
@@ -8,54 +19,65 @@ export interface GuideItem {
   description: string;
 }
 
-// Edite, adicione ou remova cards aqui — cada um vira um cartão na seção "Querido Convidado"
 export const guideItems: GuideItem[] = [
   {
     id: '1',
-    icon: Clock,
-    title: 'Seja pontual',
-    description: 'Não se atrase.',
+    icon: CheckCircle2,
+    title: 'Confirme sua presença',
+    description: 'assim que possível — isso nos ajuda a organizar tudo com carinho.',
   },
   {
     id: '2',
-    icon: MailX,
-    title: 'Não convide outras pessoas',
-    description: 'O convite é pessoal e intransferível.',
+    icon: Church,
+    title: 'Participe da cerimônia',
+    description: 'com a gente, cada momento fica mais bonito com você por perto.',
   },
   {
     id: '3',
-    icon: Palette,
-    title: 'Cores proibidas',
-    description: 'Não use branco, amarelo ou lilás.',
+    icon: Clock,
+    title: 'Seja pontual',
+    description: 'começaremos no horário combinado.',
   },
   {
     id: '4',
-    icon: MessageCircle,
-    title: 'Não faça comentários negativos',
-    description: 'Hoje é dia de festa!',
+    icon: MailX,
+    title: 'Convidado não convida',
+    description: 'seu convite é pessoal e intransferível.',
   },
   {
     id: '5',
-    icon: Heart,
-    title: 'Não saia sem se despedir',
-    description: 'Vá até os noivos antes de ir embora.',
+    icon: Shirt,
+    title: 'Dress code: esporte fino',
+    description: 'capriche com carinho no traje!',
   },
   {
     id: '6',
-    icon: PartyPopper,
-    title: 'Aproveite bastante!',
-    description: 'Vamos celebrar juntos.',
+    icon: Palette,
+    title: 'Branco, amarelo e lilás são as cores da noiva',
+    description: 'pedimos gentilmente para evitar essas cores no seu look.',
   },
   {
     id: '7',
-    icon: Wine,
-    title: 'Não haverá bebidas alcoólicas',
-    description: 'Contamos com a sua compreensão.',
+    icon: Camera,
+    title: 'Não atrapalhe os fotógrafos',
+    description: 'durante os registros do dia — eles vão eternizar tudo pra gente.',
   },
   {
     id: '8',
-    icon: Shirt,
-    title: 'Dress code',
-    description: 'Traje esporte fino.',
+    icon: Cake,
+    title: 'Aguarde a liberação da mesa de doces',
+    description: 'assim garantimos que todos aproveitem igualmente.',
+  },
+  {
+    id: '9',
+    icon: Heart,
+    title: 'Não saia sem se despedir',
+    description: 'queremos um abraço apertado no final!',
+  },
+  {
+    id: '10',
+    icon: PartyPopper,
+    title: 'Aproveite bastante',
+    description: 'e o mais importante: aproveite muito esse dia com a gente!',
   },
 ];
