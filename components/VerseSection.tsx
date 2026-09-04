@@ -48,7 +48,7 @@ export default function VerseSection() {
           className="text-base tracking-widest uppercase text-butter-700"
         >
           <span className="font-display text-xl normal-case">Marcos</span>{' '}
-          <span className="font-display normal-case">10:9</span>
+          <span className="font-body normal-case">10:9</span>
         </motion.span>
       </div>
     </section>

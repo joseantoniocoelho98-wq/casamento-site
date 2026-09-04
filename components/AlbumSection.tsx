@@ -2,11 +2,9 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { QRCodeSVG } from 'qrcode.react';
 import { Camera, Loader2, X } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
 
-const SITE_URL = 'https://casamento-site-bay.vercel.app';
 const BUCKET = 'album';
 
 interface AlbumFile {
@@ -82,18 +80,8 @@ export default function AlbumSection() {
             Álbum Compartilhado
           </h2>
           <p className="text-xl text-butter-700 mt-4 max-w-xl mx-auto">
-            Escaneie o QR Code ou toque no botão abaixo para enviar suas fotos e vídeos do nosso grande dia!
+            Toque no botão abaixo para enviar suas fotos e vídeos do nosso grande dia!
           </p>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.7, delay: 0.1 }}
-          className="bg-white p-6 rounded-2xl shadow-soft"
-        >
-          <QRCodeSVG value={`${SITE_URL}/#album`} size={180} />
         </motion.div>
 
         <label className="cursor-pointer inline-flex items-center gap-2 bg-butter-600 hover:bg-butter-700 text-white px-8 py-4 rounded-full shadow-soft transition-colors duration-300 text-lg tracking-wide">

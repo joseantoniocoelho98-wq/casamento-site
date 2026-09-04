@@ -5,14 +5,11 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    /* CONTROLE DE TAMANHO DA FONTE DO SITE INTEIRO:
-       aumente esse número pra deixar tudo maior, diminua pra deixar menor.
-       100% = tamanho padrão do navegador. Ex: 130% deixa tudo 30% maior. */
     font-size: 125%;
   }
 
   body {
-    @apply text-butter-700 font-body text-xl antialiased;
+    @apply text-butter-700 font-display text-xl antialiased;
     background-color: #FAF3D8;
   }
 

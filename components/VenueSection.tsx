@@ -39,15 +39,15 @@ export default function VenueSection({
           <div className="space-y-4 text-xl text-butter-700">
             <div className="flex items-center gap-3">
               <Calendar size={24} className="text-butter-600 shrink-0" />
-              <span className="font-display text-2xl">{date}</span>
+               <span className="font-body text-2xl">{date}</span>
             </div>
             <div className="flex items-center gap-3">
               <Clock size={24} className="text-butter-600 shrink-0" />
-              <span className="font-display text-2xl">{time}</span>
+              <span className="font-body text-2xl">{time}</span>
             </div>
             <div className="flex items-center gap-3">
               <MapPin size={24} className="text-butter-600 shrink-0" />
-              <span className="font-display text-2xl">{address}</span>
+              <span className="font-body text-2xl">{address}</span>
             </div>
           </div>
 
