@@ -32,14 +32,14 @@ export default function VenueSection({
           <span className="text-lg uppercase tracking-widest text-butter-700">
             {eyebrow}
           </span>
-          <h2 className="text-6xl md:text-7xl text-butter-700 mt-3 mb-8">
+          <h2 className="font-venue text-6xl md:text-7xl text-butter-700 mt-3 mb-8">
             {title}
           </h2>
 
           <div className="space-y-4 text-xl text-butter-700">
             <div className="flex items-center gap-3">
               <Calendar size={24} className="text-butter-600 shrink-0" />
-               <span className="font-body text-2xl">{date}</span>
+              <span className="font-body text-2xl">{date}</span>
             </div>
             <div className="flex items-center gap-3">
               <Clock size={24} className="text-butter-600 shrink-0" />
@@ -47,11 +47,11 @@ export default function VenueSection({
             </div>
             <div className="flex items-center gap-3">
               <MapPin size={24} className="text-butter-600 shrink-0" />
-              <span className="font-body text-2xl">{address}</span>
+              <span className="font-display text-2xl">{address}</span>
             </div>
           </div>
 
-          <a
+          
             href={mapsLink}
             target="_blank"
             rel="noopener noreferrer"

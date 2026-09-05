@@ -34,7 +34,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.3 }}
           className="text-2xl md:text-3xl font-body text-white"
         >
-          28.02.2027
+          09.01.2027
         </motion.p>
 
         <motion.button

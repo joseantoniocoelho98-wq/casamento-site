@@ -9,8 +9,7 @@
   }
 
   body {
-    @apply text-butter-700 font-display text-xl antialiased;
-    background-color: #FAF3D8;
+    @apply text-butter-700 font-display text-xl antialiased bg-white;
   }
 
   h1,

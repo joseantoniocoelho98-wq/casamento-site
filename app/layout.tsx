@@ -3,15 +3,19 @@ import { Inter } from 'next/font/google';
 import localFont from 'next/font/local';
 import './globals.css';
 
-// Fonte de títulos e nomes — arquivo local, baixado manualmente
-// (não está disponível no Google Fonts). Uso pessoal.
 const verandah = localFont({
   src: '../public/fonts/VerandahReverie.otf',
   variable: '--font-display',
   display: 'swap',
 });
 
-// Fonte sans-serif para texto corrido — legível e limpa
+// Fonte exclusiva pro nome dos locais (Cerimônia/Recepção)
+const venueFont = localFont({
+  src: '../public/fonts/VenueName.otf',
+  variable: '--font-venue',
+  display: 'swap',
+});
+
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
@@ -40,7 +44,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR" className={`${verandah.variable} ${inter.variable}`}>
+    <html
+      lang="pt-BR"
+      className={`${verandah.variable} ${venueFont.variable} ${inter.variable}`}
+    >
       <body>{children}</body>
     </html>
   );

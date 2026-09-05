@@ -47,6 +47,7 @@ const config: Config = {
       },
       fontFamily: {
         display: ['var(--font-display)', 'cursive'],
+        venue: ['var(--font-venue)', 'cursive'],
         body: ['var(--font-inter)', 'sans-serif'],
       },
       borderRadius: {
