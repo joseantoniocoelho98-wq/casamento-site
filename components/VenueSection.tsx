@@ -48,7 +48,7 @@ export default function VenueSection({
             </div>
             <div className="flex items-center gap-3">
               <MapPin size={24} className="text-butter-600 shrink-0" />
-              <span className="font-body text-2xl">{address}</span>
+              <span className="font-numeros text-2xl">{address}</span>
             </div>
           </div>
 

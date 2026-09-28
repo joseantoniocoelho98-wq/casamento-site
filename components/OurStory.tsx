@@ -15,8 +15,6 @@ export default function OurStory() {
           transition={{ duration: 0.7 }}
           className="text-center mb-16 md:mb-24"
         >
-          <span className="text-base uppercase tracking-widest text-butter-700">
-            Nossa jornada
           </span>
           <h2 className="text-5xl md:text-6xl text-butter-700 mt-3">
             Nossa História

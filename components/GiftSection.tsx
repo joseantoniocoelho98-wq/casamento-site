@@ -50,7 +50,7 @@ export default function GiftSection() {
           <span className="text-base uppercase tracking-widest text-butter-700">
             Chave Pix
           </span>
-          <p className="text-2xl text-butter-700 break-all">{giftInfo.pixKey}</p>
+          <p className="font-numeros text-2xl text-butter-700 break-all">{giftInfo.pixKey}</p>
           {giftInfo.pixOwner && (
             <p className="text-base text-butter-600">{giftInfo.pixOwner}</p>
           )}
