@@ -3,22 +3,22 @@ import { Inter } from 'next/font/google';
 import localFont from 'next/font/local';
 import './globals.css';
 
-const verandah = localFont({
-  src: '../public/fonts/VerandahReverie.otf',
-  variable: '--font-display',
+const titleFont = localFont({
+  src: '../public/fonts/Titulo.ttf',
+  variable: '--font-titulo',
   display: 'swap',
 });
 
-// Fonte exclusiva pro nome dos locais (Cerimônia/Recepção)
-const venueFont = localFont({
-  src: '../public/fonts/VenueName.otf',
-  variable: '--font-venue',
+const textFont = localFont({
+  src: '../public/fonts/Texto.otf',
+  variable: '--font-texto',
   display: 'swap',
 });
 
-const inter = Inter({
+// Fonte exclusiva para NÚMEROS (datas, horários) — do Google, sem bloqueio de dígitos
+const numberFont = Inter({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-numeros',
   display: 'swap',
 });
 
@@ -46,7 +46,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${verandah.variable} ${venueFont.variable} ${inter.variable}`}
+      className={`${titleFont.variable} ${textFont.variable} ${numberFont.variable}`}
     >
       <body>{children}</body>
     </html>

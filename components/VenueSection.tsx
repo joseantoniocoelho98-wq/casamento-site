@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Calendar, Clock, MapPin, ExternalLink } from 'lucide-react';
 import type { VenueInfo } from '@/lib/venueData';
@@ -32,7 +33,7 @@ export default function VenueSection({
           <span className="text-lg uppercase tracking-widest text-butter-700">
             {eyebrow}
           </span>
-          <h2 className="font-venue text-6xl md:text-7xl text-butter-700 mt-3 mb-8">
+          <h2 className="text-6xl md:text-7xl text-butter-700 mt-3 mb-8">
             {title}
           </h2>
 
@@ -47,11 +48,11 @@ export default function VenueSection({
             </div>
             <div className="flex items-center gap-3">
               <MapPin size={24} className="text-butter-600 shrink-0" />
-              <span className="font-display text-2xl">{address}</span>
+              <span className="font-body text-2xl">{address}</span>
             </div>
           </div>
 
-          <a
+          <Link
             href={mapsLink}
             target="_blank"
             rel="noopener noreferrer"
@@ -59,7 +60,7 @@ export default function VenueSection({
           >
             Abrir no Google Maps
             <ExternalLink size={16} />
-          </a>
+          </Link>
         </motion.div>
 
         <motion.div

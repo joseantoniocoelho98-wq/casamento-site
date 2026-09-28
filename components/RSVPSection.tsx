@@ -90,7 +90,6 @@ export default function RSVPSection() {
           <span className="text-lg uppercase tracking-widest text-butter-700">
             Confirme sua presença
           </span>
-          <h2 className="text-6xl md:text-7xl text-butter-700 mt-3">RSVP</h2>
           <p className="text-xl text-butter-700 mt-4">
             Vai levar acompanhantes? Digite o nome de cada um, um de cada vez.
           </p>

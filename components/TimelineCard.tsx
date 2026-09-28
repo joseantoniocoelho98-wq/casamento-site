@@ -42,7 +42,7 @@ export default function TimelineCard({ item, align }: TimelineCardProps) {
       <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-butter-500 border-4 border-cream-50 shadow-soft" />
 
       <div className="w-full md:w-1/2 text-center md:text-left">
-        <span className="text-lg uppercase tracking-widest font-body text-butter-700">
+        <span className="text-lg uppercase tracking-widest font-numeros text-butter-700">
           {item.date}
         </span>
         <h3 className="text-4xl md:text-5xl text-butter-700 mt-2 mb-3">
