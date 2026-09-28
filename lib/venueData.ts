@@ -1,23 +1,16 @@
 export interface VenueInfo {
-  eyebrow: string;
   title: string;
   date: string;
-  time: string;
+  ceremonyTime: string;
+  receptionTime: string;
   address: string;
 }
 
-export const ceremonyInfo: VenueInfo = {
-  eyebrow: 'Cerimônia',
+// Cerimônia e recepção no mesmo local — edite aqui se algo mudar
+export const venueInfo: VenueInfo = {
   title: 'Rancho Miguel Vieira',
   date: '09/01/2027',
-  time: '16h00',
-  address: 'MA-014, 11 - Jacaraí, Vitória do Mearim - MA, 65350-000',
-};
-
-export const receptionInfo: VenueInfo = {
-  eyebrow: 'Recepção',
-  title: 'Rancho Miguel Vieira',
-  date: '09/01/2027',
-  time: '19h00',
+  ceremonyTime: '16h00',
+  receptionTime: '19h00',
   address: 'MA-014, 11 - Jacaraí, Vitória do Mearim - MA, 65350-000',
 };

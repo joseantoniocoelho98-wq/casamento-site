@@ -3,26 +3,16 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Calendar, Clock, MapPin, ExternalLink } from 'lucide-react';
-import type { VenueInfo } from '@/lib/venueData';
+import { venueInfo } from '@/lib/venueData';
 
-interface VenueSectionProps extends VenueInfo {
-  id: string;
-}
-
-export default function VenueSection({
-  id,
-  eyebrow,
-  title,
-  date,
-  time,
-  address,
-}: VenueSectionProps) {
+export default function VenueSection() {
+  const { title, date, ceremonyTime, receptionTime, address } = venueInfo;
   const encodedAddress = encodeURIComponent(address);
   const mapEmbedSrc = `https://www.google.com/maps?q=${encodedAddress}&output=embed`;
   const mapsLink = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
 
   return (
-    <section id={id} className="section-padding">
+    <section id="local" className="section-padding">
       <div className="section-container grid md:grid-cols-2 gap-10 md:gap-16 items-center">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
@@ -31,7 +21,7 @@ export default function VenueSection({
           transition={{ duration: 0.7 }}
         >
           <span className="text-lg uppercase tracking-widest text-butter-700">
-            {eyebrow}
+            Cerimônia e Recepção
           </span>
           <h2 className="text-6xl md:text-7xl text-butter-700 mt-3 mb-8">
             {title}
@@ -40,11 +30,15 @@ export default function VenueSection({
           <div className="space-y-4 text-xl text-butter-700">
             <div className="flex items-center gap-3">
               <Calendar size={24} className="text-butter-600 shrink-0" />
-              <span className="font-body text-2xl">{date}</span>
+              <span className="font-numeros text-2xl">{date}</span>
             </div>
             <div className="flex items-center gap-3">
               <Clock size={24} className="text-butter-600 shrink-0" />
-              <span className="font-body text-2xl">{time}</span>
+              <span className="font-numeros text-2xl">Cerimônia: {ceremonyTime}</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <Clock size={24} className="text-butter-600 shrink-0" />
+              <span className="font-numeros text-2xl">Recepção: {receptionTime}</span>
             </div>
             <div className="flex items-center gap-3">
               <MapPin size={24} className="text-butter-600 shrink-0" />

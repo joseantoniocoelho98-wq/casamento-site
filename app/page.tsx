@@ -6,7 +6,6 @@ import OurStory from '@/components/OurStory';
 import VerseSection from '@/components/VerseSection';
 import RSVPSection from '@/components/RSVPSection';
 import AlbumSection from '@/components/AlbumSection';
-import { ceremonyInfo, receptionInfo } from '@/lib/venueData';
 
 export default function Home() {
   return (
@@ -14,8 +13,7 @@ export default function Home() {
       <Hero />
       <GuestGuideSection />
       <GiftSection />
-      <VenueSection id="cerimonia" {...ceremonyInfo} />
-      <VenueSection id="recepcao" {...receptionInfo} />
+      <VenueSection />
       <OurStory />
       <VerseSection />
       <RSVPSection />
