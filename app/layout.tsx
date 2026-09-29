@@ -4,7 +4,7 @@ import localFont from 'next/font/local';
 import './globals.css';
 
 const titleFont = localFont({
-  src: '../public/fonts/Titulo.otf',
+  src: '../public/fonts/Titulo.ttf',
   variable: '--font-titulo',
   display: 'swap',
 });
