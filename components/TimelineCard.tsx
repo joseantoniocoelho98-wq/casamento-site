@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Heart } from 'lucide-react';
 import type { StoryItem } from '@/lib/storyData';
+import { MixedFontText } from '@/lib/mixedFontText';
 
 interface TimelineCardProps {
   item: StoryItem;
@@ -42,8 +43,8 @@ export default function TimelineCard({ item, align }: TimelineCardProps) {
       <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-butter-500 border-4 border-cream-50 shadow-soft" />
 
       <div className="w-full md:w-1/2 text-center md:text-left">
-        <span className="text-lg uppercase tracking-widest font-numeros text-butter-700">
-          {item.date}
+        <span className="text-lg uppercase tracking-widest text-butter-700">
+          <MixedFontText text={item.date} />
         </span>
         <h3 className="text-4xl md:text-5xl text-butter-700 mt-2 mb-3">
           {item.title}

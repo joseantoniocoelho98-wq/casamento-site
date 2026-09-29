@@ -47,7 +47,7 @@ export default function VerseSection() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-base tracking-widest uppercase text-butter-700"
         >
-          <span className="font-display text-xl normal-case">Marcos</span>{' '}
+          <span className="font-body text-xl normal-case">Marcos</span>{' '}
           <span className="font-numeros normal-case">10:9</span>
         </motion.span>
       </div>

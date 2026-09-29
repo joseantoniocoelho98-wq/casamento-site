@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Cinzel } from 'next/font/google';
 import localFont from 'next/font/local';
 import './globals.css';
 
 const titleFont = localFont({
-  src: '../public/fonts/Titulo.ttf',
+  src: '../public/fonts/Titulo.otf',
   variable: '--font-titulo',
   display: 'swap',
 });
@@ -15,9 +15,10 @@ const textFont = localFont({
   display: 'swap',
 });
 
-// Fonte exclusiva para NÚMEROS (datas, horários) — do Google, sem bloqueio de dígitos
-const numberFont = Inter({
+// Fonte exclusiva para NÚMEROS — Cinzel, do Google
+const numberFont = Cinzel({
   subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
   variable: '--font-numeros',
   display: 'swap',
 });
