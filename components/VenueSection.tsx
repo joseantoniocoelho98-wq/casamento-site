@@ -7,7 +7,7 @@ import { venueInfo } from '@/lib/venueData';
 import { MixedFontText } from '@/lib/mixedFontText';
 
 export default function VenueSection() {
-  const { title, date, ceremonyTime, receptionTime, address } = venueInfo;
+  const { title, date, ceremonyTime, address } = venueInfo;
   const encodedAddress = encodeURIComponent(address);
   const mapEmbedSrc = `https://www.google.com/maps?q=${encodedAddress}&output=embed`;
   const mapsLink = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
@@ -39,12 +39,6 @@ export default function VenueSection() {
               <Clock size={24} className="text-black shrink-0" />
               <span className="text-2xl">
                 <MixedFontText text={`Cerimônia: ${ceremonyTime}`} />
-              </span>
-            </div>
-            <div className="flex items-center gap-3">
-              <Clock size={24} className="text-black shrink-0" />
-              <span className="text-2xl">
-                <MixedFontText text={`Recepção: ${receptionTime}`} />
               </span>
             </div>
             <div className="flex items-center gap-3">
