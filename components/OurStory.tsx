@@ -21,7 +21,7 @@ export default function OurStory() {
         </motion.div>
 
         <div className="relative flex flex-col gap-16 md:gap-24">
-          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-butter-300 -translate-x-1/2" />
+          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-black -translate-x-1/2" />
 
           {storyItems.map((item, index) => (
             <TimelineCard

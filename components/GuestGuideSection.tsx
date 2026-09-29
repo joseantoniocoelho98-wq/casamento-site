@@ -32,8 +32,8 @@ export default function GuestGuideSection() {
                 transition={{ duration: 0.5, delay: (index % 6) * 0.05 }}
                 className="flex items-start gap-4 text-left"
               >
-                <div className="w-11 h-11 shrink-0 rounded-full bg-butter-100 flex items-center justify-center">
-                  <Icon className="text-butter-600" size={20} />
+                <div className="w-11 h-11 shrink-0 rounded-full bg-gray-100 flex items-center justify-center">
+                  <Icon className="text-black" size={20} />
                 </div>
                 <p className="text-lg text-black leading-relaxed">
                   <strong>{item.title}</strong> {item.description}

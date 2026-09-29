@@ -45,7 +45,7 @@ export default function GiftSection() {
           </div>
         )}
 
-        <div className="w-full flex flex-col items-center gap-3 bg-butter-50 rounded-2xl p-6">
+        <div className="w-full flex flex-col items-center gap-3 bg-gray-50 rounded-2xl p-6">
           <span className="text-base uppercase tracking-widest text-black">
             Chave Pix
           </span>

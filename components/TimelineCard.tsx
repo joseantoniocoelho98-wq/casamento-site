@@ -26,7 +26,7 @@ export default function TimelineCard({ item, align }: TimelineCardProps) {
         isLeft ? 'md:flex-row' : 'md:flex-row-reverse'
       }`}
     >
-      <div className="relative w-full md:w-1/2 aspect-[4/3] rounded-2xl overflow-hidden shadow-soft bg-gradient-to-br from-lilac-200 via-cream-100 to-cream-200 flex items-center justify-center">
+      <div className="relative w-full md:w-1/2 aspect-[4/3] rounded-2xl overflow-hidden shadow-soft bg-gray-100 flex items-center justify-center">
         {!imageFailed ? (
           <Image
             src={item.image}
@@ -36,11 +36,11 @@ export default function TimelineCard({ item, align }: TimelineCardProps) {
             onError={() => setImageFailed(true)}
           />
         ) : (
-          <Heart className="text-lilac-500/60" size={40} />
+          <Heart className="text-black/40" size={40} />
         )}
       </div>
 
-      <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-butter-500 border-4 border-cream-50 shadow-soft" />
+      <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-black border-4 border-white shadow-soft" />
 
       <div className="w-full md:w-1/2 text-center md:text-left">
         <span className="text-lg uppercase tracking-widest text-black">

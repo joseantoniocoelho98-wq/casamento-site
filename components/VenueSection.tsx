@@ -30,25 +30,25 @@ export default function VenueSection() {
 
           <div className="space-y-4 text-xl text-black">
             <div className="flex items-center gap-3">
-              <Calendar size={24} className="text-butter-600 shrink-0" />
+              <Calendar size={24} className="text-black shrink-0" />
               <span className="text-2xl">
                 <MixedFontText text={date} />
               </span>
             </div>
             <div className="flex items-center gap-3">
-              <Clock size={24} className="text-butter-600 shrink-0" />
+              <Clock size={24} className="text-black shrink-0" />
               <span className="text-2xl">
                 <MixedFontText text={`Cerimônia: ${ceremonyTime}`} />
               </span>
             </div>
             <div className="flex items-center gap-3">
-              <Clock size={24} className="text-butter-600 shrink-0" />
+              <Clock size={24} className="text-black shrink-0" />
               <span className="text-2xl">
                 <MixedFontText text={`Recepção: ${receptionTime}`} />
               </span>
             </div>
             <div className="flex items-center gap-3">
-              <MapPin size={24} className="text-butter-600 shrink-0" />
+              <MapPin size={24} className="text-black shrink-0" />
               <span className="text-2xl">
                 <MixedFontText text={address} />
               </span>

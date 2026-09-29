@@ -112,7 +112,7 @@ export default function AlbumSection() {
                 <button
                   key={file.name}
                   onClick={() => setSelected(file)}
-                  className="aspect-square rounded-xl overflow-hidden shadow-softer bg-butter-100 cursor-pointer"
+                  className="aspect-square rounded-xl overflow-hidden shadow-softer bg-gray-100 cursor-pointer"
                 >
                   {isVideo ? (
                     <video src={file.url} className="w-full h-full object-cover pointer-events-none" />

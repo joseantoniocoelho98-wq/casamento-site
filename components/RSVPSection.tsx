@@ -100,9 +100,9 @@ export default function RSVPSection() {
             {confirmedThisSession.map((name) => (
               <div
                 key={name}
-                className="flex items-center gap-2 px-6 py-3 rounded-xl bg-butter-100 text-black text-lg"
+                className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gray-100 text-black text-lg"
               >
-                <Check size={18} className="text-butter-600 shrink-0" />
+                <Check size={18} className="text-black shrink-0" />
                 {name}
               </div>
             ))}
@@ -110,7 +110,7 @@ export default function RSVPSection() {
         )}
 
         <div className="relative w-full">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-butter-500" size={20} />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-black" size={20} />
           <input
             type="text"
             value={query}
@@ -119,7 +119,7 @@ export default function RSVPSection() {
               setSelected(null);
             }}
             placeholder="Digite o nome e sobrenome"
-            className="w-full pl-12 pr-4 py-4 rounded-full border border-butter-300 bg-white text-black text-lg focus:outline-none focus:ring-2 focus:ring-butter-500"
+            className="w-full pl-12 pr-4 py-4 rounded-full border border-black bg-white text-black text-lg focus:outline-none focus:ring-2 focus:ring-black"
           />
         </div>
 
@@ -129,11 +129,11 @@ export default function RSVPSection() {
               <button
                 key={guest.id}
                 onClick={() => setSelected(guest)}
-                className="w-full text-left px-6 py-3 rounded-xl bg-white hover:bg-butter-50 border border-butter-200 text-black text-lg transition-colors"
+                className="w-full text-left px-6 py-3 rounded-xl bg-white hover:bg-gray-50 border border-black text-black text-lg transition-colors"
               >
                 {guest.full_name}
                 {guest.confirmed && (
-                  <span className="ml-2 text-sm text-butter-500">(já confirmado)</span>
+                  <span className="ml-2 text-sm text-black">(já confirmado)</span>
                 )}
               </button>
             ))}
@@ -180,7 +180,7 @@ export default function RSVPSection() {
             animate={{ opacity: 1 }}
             className="flex items-center gap-2 text-black text-lg"
           >
-            <PartyPopper size={22} className="text-butter-600" />
+            <PartyPopper size={22} className="text-black" />
             Obrigado! Pode digitar mais um nome acima, se precisar.
           </motion.div>
         )}
