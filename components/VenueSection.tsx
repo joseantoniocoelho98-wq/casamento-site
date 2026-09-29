@@ -21,14 +21,14 @@ export default function VenueSection() {
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.7 }}
         >
-          <span className="text-lg uppercase tracking-widest text-butter-700">
+          <span className="text-lg uppercase tracking-widest text-black">
             Cerimônia e Recepção
           </span>
-          <h2 className="text-6xl md:text-7xl text-butter-700 mt-3 mb-8">
+          <h2 className="text-6xl md:text-7xl text-black mt-3 mb-8">
             {title}
           </h2>
 
-          <div className="space-y-4 text-xl text-butter-700">
+          <div className="space-y-4 text-xl text-black">
             <div className="flex items-center gap-3">
               <Calendar size={24} className="text-butter-600 shrink-0" />
               <span className="text-2xl">

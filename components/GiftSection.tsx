@@ -8,7 +8,6 @@ import { giftInfo } from '@/lib/giftData';
 
 export default function GiftSection() {
   const [copied, setCopied] = useState(false);
-  // Se o QR Code do Pix não estiver em /public/images/pix-qr.png, ele simplesmente não aparece
   const [qrFailed, setQrFailed] = useState(false);
 
   async function copyPixKey() {
@@ -30,8 +29,8 @@ export default function GiftSection() {
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.7 }}
         >
-          <h2 className="text-5xl md:text-6xl text-butter-700">{giftInfo.title}</h2>
-          <p className="text-xl text-butter-700 mt-4">{giftInfo.message}</p>
+          <h2 className="text-5xl md:text-6xl text-black">{giftInfo.title}</h2>
+          <p className="text-xl text-black mt-4">{giftInfo.message}</p>
         </motion.div>
 
         {!qrFailed && (
@@ -47,12 +46,12 @@ export default function GiftSection() {
         )}
 
         <div className="w-full flex flex-col items-center gap-3 bg-butter-50 rounded-2xl p-6">
-          <span className="text-base uppercase tracking-widest text-butter-700">
+          <span className="text-base uppercase tracking-widest text-black">
             Chave Pix
           </span>
-          <p className="font-numeros text-2xl text-butter-700 break-all">{giftInfo.pixKey}</p>
+          <p className="font-numeros text-2xl text-black break-all">{giftInfo.pixKey}</p>
           {giftInfo.pixOwner && (
-            <p className="text-base text-butter-600">{giftInfo.pixOwner}</p>
+            <p className="text-base text-black">{giftInfo.pixOwner}</p>
           )}
           <button
             onClick={copyPixKey}

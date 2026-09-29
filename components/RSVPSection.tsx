@@ -87,10 +87,10 @@ export default function RSVPSection() {
     <section id="rsvp" className="section-padding">
       <div className="section-container flex flex-col items-center text-center gap-8 max-w-lg mx-auto">
         <div>
-          <span className="text-lg uppercase tracking-widest text-butter-700">
+          <span className="text-lg uppercase tracking-widest text-black">
             Confirme sua presença
           </span>
-          <p className="text-xl text-butter-700 mt-4">
+          <p className="text-xl text-black mt-4">
             Vai levar acompanhantes? Digite o nome de cada um, um de cada vez.
           </p>
         </div>
@@ -100,7 +100,7 @@ export default function RSVPSection() {
             {confirmedThisSession.map((name) => (
               <div
                 key={name}
-                className="flex items-center gap-2 px-6 py-3 rounded-xl bg-butter-100 text-butter-700 text-lg"
+                className="flex items-center gap-2 px-6 py-3 rounded-xl bg-butter-100 text-black text-lg"
               >
                 <Check size={18} className="text-butter-600 shrink-0" />
                 {name}
@@ -119,7 +119,7 @@ export default function RSVPSection() {
               setSelected(null);
             }}
             placeholder="Digite o nome e sobrenome"
-            className="w-full pl-12 pr-4 py-4 rounded-full border border-butter-300 bg-white text-butter-700 text-lg focus:outline-none focus:ring-2 focus:ring-butter-500"
+            className="w-full pl-12 pr-4 py-4 rounded-full border border-butter-300 bg-white text-black text-lg focus:outline-none focus:ring-2 focus:ring-butter-500"
           />
         </div>
 
@@ -129,7 +129,7 @@ export default function RSVPSection() {
               <button
                 key={guest.id}
                 onClick={() => setSelected(guest)}
-                className="w-full text-left px-6 py-3 rounded-xl bg-white hover:bg-butter-50 border border-butter-200 text-butter-700 text-lg transition-colors"
+                className="w-full text-left px-6 py-3 rounded-xl bg-white hover:bg-butter-50 border border-butter-200 text-black text-lg transition-colors"
               >
                 {guest.full_name}
                 {guest.confirmed && (
@@ -141,7 +141,7 @@ export default function RSVPSection() {
         )}
 
         {query.trim().length >= 2 && results.length === 0 && (
-          <p className="text-butter-600 text-base">
+          <p className="text-black text-base">
             Não encontramos esse nome na lista. Confira a grafia ou fale com os noivos.
           </p>
         )}
@@ -154,12 +154,12 @@ export default function RSVPSection() {
               exit={{ opacity: 0, y: -10 }}
               className="w-full flex flex-col items-center gap-4 bg-white rounded-2xl shadow-soft p-6"
             >
-              <p className="text-xl text-butter-700">
+              <p className="text-xl text-black">
                 Confirmar presença de <strong>{selected.full_name}</strong>?
               </p>
 
               {selected.confirmed ? (
-                <p className="text-butter-600">Essa presença já foi confirmada anteriormente 🎉</p>
+                <p className="text-black">Essa presença já foi confirmada anteriormente 🎉</p>
               ) : (
                 <button
                   onClick={handleConfirm}
@@ -178,7 +178,7 @@ export default function RSVPSection() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="flex items-center gap-2 text-butter-700 text-lg"
+            className="flex items-center gap-2 text-black text-lg"
           >
             <PartyPopper size={22} className="text-butter-600" />
             Obrigado! Pode digitar mais um nome acima, se precisar.

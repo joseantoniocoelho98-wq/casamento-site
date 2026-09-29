@@ -14,11 +14,8 @@ export default function GuestGuideSection() {
           transition={{ duration: 0.7 }}
           className="text-center mb-16"
         >
-          <span className="text-lg uppercase tracking-widest text-butter-700">
-            Querido
-          </span>
-          <h2 className="text-6xl md:text-7xl text-butter-700 mt-3">Convidado</h2>
-          <p className="text-xl text-butter-700 mt-4">
+          <h2 className="text-6xl md:text-7xl text-black mt-3">Convidado</h2>
+          <p className="text-xl text-black mt-4">
             Ajude-nos a deixar esse dia ainda mais especial! Por gentileza:
           </p>
         </motion.div>
@@ -38,7 +35,7 @@ export default function GuestGuideSection() {
                 <div className="w-11 h-11 shrink-0 rounded-full bg-butter-100 flex items-center justify-center">
                   <Icon className="text-butter-600" size={20} />
                 </div>
-                <p className="text-lg text-butter-700 leading-relaxed">
+                <p className="text-lg text-black leading-relaxed">
                   <strong>{item.title}</strong> {item.description}
                 </p>
               </motion.div>

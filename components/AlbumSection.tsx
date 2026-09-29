@@ -73,13 +73,10 @@ export default function AlbumSection() {
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.7 }}
         >
-          <span className="text-lg uppercase tracking-widest text-butter-700">
-            Registre o amor
-          </span>
-          <h2 className="text-6xl md:text-7xl text-butter-700 mt-3">
+          <h2 className="text-6xl md:text-7xl text-black mt-3">
             Álbum Compartilhado
           </h2>
-          <p className="text-xl text-butter-700 mt-4 max-w-xl mx-auto">
+          <p className="text-xl text-black mt-4 max-w-xl mx-auto">
             Toque no botão abaixo para enviar suas fotos e vídeos do nosso grande dia!
           </p>
         </motion.div>

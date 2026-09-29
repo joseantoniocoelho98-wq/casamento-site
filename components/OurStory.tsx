@@ -15,7 +15,7 @@ export default function OurStory() {
           transition={{ duration: 0.7 }}
           className="text-center mb-16 md:mb-24"
         >
-          <h2 className="text-5xl md:text-6xl text-butter-700 mt-3">
+          <h2 className="text-5xl md:text-6xl text-black mt-3">
             Nossa História
           </h2>
         </motion.div>
