@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Calendar, Clock, MapPin, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
 import { venueInfo } from '@/lib/venueData';
-import MixedFontText from '@/lib/mixedFontText';
+import { MixedFontText } from '@/lib/mixedFontText';
 
 export default function VenueSection() {
   const query = encodeURIComponent(venueInfo.mapQuery);
