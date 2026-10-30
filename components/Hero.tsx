@@ -14,35 +14,21 @@ export default function Hero() {
   return (
     <section className="relative h-[100svh] w-full overflow-hidden bg-black">
       {!imageError ? (
-        <>
-          {/* Fundo desfocado: aparece só no computador, atrás da foto inteira */}
-          <Image
-            src="/images/hero.jpg"
-            alt=""
-            fill
-            sizes="100vw"
-            className="hidden scale-110 object-cover blur-2xl md:block"
-            onError={() => setImageError(true)}
-          />
-          <div className="absolute inset-0 hidden bg-black/30 md:block" />
-
-          {/* Foto nítida: celular = preenche a tela; computador = aparece inteira */}
-          <Image
-            src="/images/hero.jpg"
-            alt="José e Ianca"
-            fill
-            priority
-            quality={90}
-            sizes="(min-width: 768px) 60vw, 100vw"
-            className="object-cover object-center md:object-contain"
-            onError={() => setImageError(true)}
-          />
-        </>
+        <Image
+          src="/images/hero.jpg"
+          alt="José e Ianca"
+          fill
+          priority
+          quality={95}
+          sizes="100vw"
+          className="object-cover object-[center_20%] md:object-[center_28%]"
+          onError={() => setImageError(true)}
+        />
       ) : (
         <div className="absolute inset-0 bg-gradient-to-br from-butter-300 to-lilac-300" />
       )}
 
-      {/* Degradê apenas embaixo, para o texto ficar legível sem escurecer a foto toda */}
+      {/* Degradê só embaixo, para o texto ficar legível sem escurecer a foto toda */}
       <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/70 to-transparent" />
 
       <div className="absolute inset-x-0 bottom-0 flex flex-col items-center px-4 pb-10 text-center md:pb-14">
