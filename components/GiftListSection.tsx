@@ -115,7 +115,7 @@ export default function GiftListSection() {
                   </div>
 
                   <div className="flex flex-1 flex-col p-5">
-                    <h3 className="font-display text-3xl text-black">{gift.name}</h3>
+                    <h3 className="font-body text-2xl text-black">{gift.name}</h3>
                     {gift.description && (
                       <p className="mt-2 font-body text-lg text-black">{gift.description}</p>
                     )}
@@ -156,7 +156,7 @@ export default function GiftListSection() {
               <X className="h-6 w-6" />
             </button>
 
-            <h3 className="font-display text-3xl text-black">{chosen.name}</h3>
+            <h3 className="font-body text-2xl text-black">{chosen.name}</h3>
             <p className="mt-1 font-numeros text-2xl text-black">{formatPrice(chosen.price)}</p>
 
             <label className="mt-6 block font-body text-xl text-black">Seu nome</label>
