@@ -122,14 +122,13 @@ export default function GiftListSection() {
                     <p className="mt-4 font-numeros text-2xl text-black">{formatPrice(gift.price)}</p>
 
                     <button
-                      disabled={gift.gifted}
                       onClick={() => {
                         setChosen(gift);
                         setError('');
                       }}
                       className="mt-5 rounded-full border border-black px-6 py-3 font-body text-xl text-black transition hover:bg-black hover:text-white disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-black"
                     >
-                      {gift.gifted ? 'Já presenteado' : 'Presentear'}
+                      Presentear
                     </button>
                   </div>
                 </div>

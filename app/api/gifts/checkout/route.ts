@@ -20,9 +20,6 @@ export async function POST(req: Request) {
   if (!gift) {
     return NextResponse.json({ error: 'Presente não encontrado.' }, { status: 404 });
   }
-  if (gift.gifted) {
-    return NextResponse.json({ error: 'Este presente já foi dado.' }, { status: 409 });
-  }
 
   const site = process.env.NEXT_PUBLIC_SITE_URL!;
 
@@ -36,7 +33,7 @@ export async function POST(req: Request) {
       items: [
         {
           id: gift.id,
-          title: `Presente: ${gift.name}`,
+          title: `Presente: ${gift.name} (de ${buyerName})`,
           quantity: 1,
           unit_price: Number(gift.price),
           currency_id: 'BRL',
@@ -51,7 +48,6 @@ export async function POST(req: Request) {
         failure: `${site}/#presentes`,
       },
       auto_return: 'approved',
-      notification_url: `${site}/api/gifts/webhook`,
       statement_descriptor: 'CASAMENTO',
     }),
   });
