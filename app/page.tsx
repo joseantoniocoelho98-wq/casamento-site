@@ -6,6 +6,7 @@ import OurStory from '@/components/OurStory';
 import VerseSection from '@/components/VerseSection';
 import RSVPSection from '@/components/RSVPSection';
 import AlbumSection from '@/components/AlbumSection';
+import GiftListSection from '@/components/GiftListSection';
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       <Hero />
       <GuestGuideSection />
       <GiftSection />
+      <GiftListSection />
       <VenueSection />
       <OurStory />
       <VerseSection />
