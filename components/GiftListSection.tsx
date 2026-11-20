@@ -2,8 +2,17 @@
 
 import { useEffect, useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
-import { motion } from 'framer-motion';
-import { Gift, Loader2, X } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Check, ChevronDown, Copy, Gift, Loader2, X } from 'lucide-react';
+import * as giftModule from '@/lib/giftData';
+
+// Pega os dados do Pix do seu lib/giftData.ts (title, message, pixKey, pixOwner)
+const giftInfo = Object.values(giftModule)[0] as {
+  title: string;
+  message: string;
+  pixKey: string;
+  pixOwner: string;
+};
 
 // Textos da seção: edite aqui
 const TITLE = 'Lista de Presentes';
@@ -20,13 +29,13 @@ type GiftItem = {
   description: string | null;
   image: string | null;
   price: number;
-  gifted: boolean;
 };
 
 const formatPrice = (value: number) =>
   Number(value).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
 export default function GiftListSection() {
+  const [open, setOpen] = useState(false);
   const [gifts, setGifts] = useState<GiftItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [chosen, setChosen] = useState<GiftItem | null>(null);
@@ -34,20 +43,26 @@ export default function GiftListSection() {
   const [sending, setSending] = useState(false);
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
+  const [copied, setCopied] = useState(false);
+  const [qrError, setQrError] = useState(false);
 
   useEffect(() => {
     supabase
       .from('gifts')
-      .select('id, name, description, image, price, gifted')
+      .select('id, name, description, image, price')
       .order('sort_order', { ascending: true })
       .then(({ data }) => {
         setGifts((data as GiftItem[]) ?? []);
         setLoading(false);
       });
 
-    const status = new URLSearchParams(window.location.search).get('presente');
+    // Abre sozinho ao voltar do pagamento ou ao acessar #presentes
+    const params = new URLSearchParams(window.location.search);
+    const status = params.get('presente');
     if (status === 'ok') setNotice('Pagamento recebido! Muito obrigado pelo carinho. 💛');
-    if (status === 'pendente') setNotice('Seu pagamento está em análise. Assim que for aprovado, ele será registrado.');
+    if (status === 'pendente')
+      setNotice('Seu pagamento está em análise. Assim que for aprovado, ele será registrado.');
+    if (status || window.location.hash === '#presentes') setOpen(true);
   }, []);
 
   const startPayment = async () => {
@@ -78,66 +93,140 @@ export default function GiftListSection() {
     }
   };
 
+  const copyPix = async () => {
+    try {
+      await navigator.clipboard.writeText(giftInfo.pixKey);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopied(false);
+    }
+  };
+
   return (
     <section id="presentes" className="section-padding bg-white">
       <div className="section-container">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center"
+        {/* Título clicável */}
+        <button
+          onClick={() => setOpen((v) => !v)}
+          aria-expanded={open}
+          className="mx-auto flex w-full flex-col items-center text-center"
         >
-          <h2 className="font-display text-5xl text-black md:text-6xl">{TITLE}</h2>
-          <p className="mx-auto mt-4 max-w-xl font-body text-xl text-black">{SUBTITLE}</p>
-          {notice && <p className="mt-6 font-body text-xl text-black">{notice}</p>}
-        </motion.div>
-
-        <div className="mt-12">
-          {loading ? (
-            <div className="flex justify-center">
-              <Loader2 className="h-8 w-8 animate-spin text-black" />
-            </div>
-          ) : (
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {gifts.map((gift) => (
-                <div
-                  key={gift.id}
-                  className="flex flex-col overflow-hidden rounded-2xl border border-black/20 bg-white"
-                >
-                  <div className="flex aspect-[4/3] items-center justify-center bg-black/5">
-                    {gift.image ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={gift.image} alt={gift.name} className="h-full w-full object-cover" />
-                    ) : (
-                      <Gift className="h-12 w-12 text-black" />
-                    )}
-                  </div>
-
-                  <div className="flex flex-1 flex-col p-5">
-                    <h3 className="font-body text-2xl text-black">{gift.name}</h3>
-                    {gift.description && (
-                      <p className="mt-2 font-body text-lg text-black">{gift.description}</p>
-                    )}
-                    <p className="mt-4 font-numeros text-2xl text-black">{formatPrice(gift.price)}</p>
-
-                    <button
-                      onClick={() => {
-                        setChosen(gift);
-                        setError('');
-                      }}
-                      className="mt-5 rounded-full border border-black px-6 py-3 font-body text-xl text-black transition hover:bg-black hover:text-white disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-black"
-                    >
-                      Presentear
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
+          <span className="flex items-center gap-3">
+            <span className="font-display text-5xl text-black md:text-6xl">{TITLE}</span>
+            <ChevronDown
+              className={`h-8 w-8 shrink-0 text-black transition-transform duration-300 ${
+                open ? 'rotate-180' : ''
+              }`}
+            />
+          </span>
+          {!open && (
+            <span className="mt-3 font-body text-xl text-black">Clique para ver os presentes</span>
           )}
-        </div>
+        </button>
+
+        {notice && <p className="mt-6 text-center font-body text-xl text-black">{notice}</p>}
+
+        <AnimatePresence initial={false}>
+          {open && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.4 }}
+              className="overflow-hidden"
+            >
+              <p className="mx-auto mt-6 max-w-xl text-center font-body text-xl text-black">
+                {SUBTITLE}
+              </p>
+
+              {/* Presentes */}
+              <div className="mt-10">
+                {loading ? (
+                  <div className="flex justify-center">
+                    <Loader2 className="h-8 w-8 animate-spin text-black" />
+                  </div>
+                ) : gifts.length === 0 ? (
+                  <p className="text-center font-body text-xl text-black">
+                    Em breve, a lista de presentes estará disponível.
+                  </p>
+                ) : (
+                  <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    {gifts.map((gift) => (
+                      <div
+                        key={gift.id}
+                        className="flex flex-col overflow-hidden rounded-2xl border border-black/20 bg-white"
+                      >
+                        <div className="flex aspect-[4/3] items-center justify-center bg-black/5">
+                          {gift.image ? (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img
+                              src={gift.image}
+                              alt={gift.name}
+                              className="h-full w-full object-cover"
+                            />
+                          ) : (
+                            <Gift className="h-12 w-12 text-black" />
+                          )}
+                        </div>
+
+                        <div className="flex flex-1 flex-col p-5">
+                          <h3 className="font-body text-2xl text-black">{gift.name}</h3>
+                          {gift.description && (
+                            <p className="mt-2 font-body text-lg text-black">{gift.description}</p>
+                          )}
+                          <p className="mt-4 font-numeros text-2xl text-black">
+                            {formatPrice(gift.price)}
+                          </p>
+
+                          <button
+                            onClick={() => {
+                              setChosen(gift);
+                              setError('');
+                            }}
+                            className="mt-5 rounded-full border border-black px-6 py-3 font-body text-xl text-black transition hover:bg-black hover:text-white"
+                          >
+                            Presentear
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Pix, ao final da lista */}
+              <div className="mx-auto mt-14 max-w-xl border-t border-black pt-10 text-center">
+                <h3 className="font-display text-4xl text-black">{giftInfo.title}</h3>
+                <p className="mt-4 font-body text-xl text-black">{giftInfo.message}</p>
+
+                {!qrError && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src="/images/pix-qr.png"
+                    alt="QR Code do Pix"
+                    onError={() => setQrError(true)}
+                    className="mx-auto mt-6 h-52 w-52"
+                  />
+                )}
+
+                <p className="mt-6 font-numeros text-2xl text-black">{giftInfo.pixKey}</p>
+                <p className="mt-1 font-body text-lg text-black">{giftInfo.pixOwner}</p>
+
+                <button
+                  onClick={copyPix}
+                  className="mt-5 inline-flex items-center gap-2 rounded-full border border-black px-6 py-3 font-body text-xl text-black transition hover:bg-black hover:text-white"
+                >
+                  {copied ? <Check className="h-5 w-5" /> : <Copy className="h-5 w-5" />}
+                  {copied ? 'Chave copiada!' : 'Copiar chave Pix'}
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
+      {/* Janela de pagamento */}
       {chosen && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4"
