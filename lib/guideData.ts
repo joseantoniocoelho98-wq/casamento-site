@@ -57,18 +57,6 @@ export const guideItems: GuideItem[] = [
     description: 'pedimos gentilmente para evitar essa cor no seu look. Assim como amarelo e lilás',
   },
   {
-    id: '7',
-    icon: Camera,
-    title: 'Não atrapalhe os fotógrafos',
-    description: 'durante os registros do dia — eles vão eternizar tudo pra gente.',
-  },
-  {
-    id: '8',
-    icon: Cake,
-    title: 'Aguarde a liberação da mesa de doces',
-    description: 'assim garantimos que todos aproveitem igualmente.',
-  },
-  {
     id: '9',
     icon: Heart,
     title: 'Não saia sem se despedir',
