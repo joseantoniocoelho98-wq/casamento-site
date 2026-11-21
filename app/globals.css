@@ -29,8 +29,8 @@
     @apply py-20 md:py-28;
   }
 }
-/* Teste: títulos e subtítulos com a mesma cor do nome no início */
+/* Cor dos títulos e subtítulos */
 section h2,
 section h3 {
-  @apply !text-butter-200;
+  color: #C79122 !important;
 }
