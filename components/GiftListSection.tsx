@@ -157,7 +157,7 @@ export default function GiftListSection() {
                         key={gift.id}
                         className="flex flex-col overflow-hidden rounded-2xl border border-black/20 bg-white"
                       >
-                        <div className="flex aspect-[4/3] items-center justify-center bg-black/5">
+                        <div className="flex aspect-square items-center justify-center bg-white">
                           {gift.image ? (
                             // eslint-disable-next-line @next/next/no-img-element
                             <img
