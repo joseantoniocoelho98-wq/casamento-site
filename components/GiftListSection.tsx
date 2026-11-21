@@ -113,7 +113,7 @@ export default function GiftListSection() {
           className="mx-auto flex w-full flex-col items-center text-center"
         >
           <span className="flex items-center gap-3">
-            <span className="font-display text-5xl text-black md:text-6xl">{TITLE}</span>
+            <span className="font-display text-5xl text-[#C79122] md:text-6xl">{TITLE}</span>
             <ChevronDown
               className={`h-8 w-8 shrink-0 text-black transition-transform duration-300 ${
                 open ? 'rotate-180' : ''
