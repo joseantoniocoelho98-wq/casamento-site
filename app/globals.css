@@ -29,3 +29,8 @@
     @apply py-20 md:py-28;
   }
 }
+/* Teste: títulos e subtítulos com a mesma cor do nome no início */
+section h2,
+section h3 {
+  @apply !text-butter-200;
+}
