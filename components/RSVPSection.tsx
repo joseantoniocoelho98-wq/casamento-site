@@ -87,7 +87,7 @@ export default function RSVPSection() {
     <section id="rsvp" className="section-padding">
       <div className="section-container flex flex-col items-center text-center gap-8 max-w-lg mx-auto">
         <div>
-          <span className="text-lg uppercase tracking-widest text-black">
+          <span className="text-lg uppercase tracking-widest text-[#C79122]">
             Confirme sua presença
           </span>
           <p className="text-xl text-black mt-4">
