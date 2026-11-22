@@ -140,7 +140,7 @@ export default function GiftListSection() {
                 {SUBTITLE}
               </p>
 
-              {/* Presentes */}
+              {/* Presentes: 2 por linha no celular, 3 no computador */}
               <div className="mt-10">
                 {loading ? (
                   <div className="flex justify-center">
@@ -151,11 +151,11 @@ export default function GiftListSection() {
                     Em breve, a lista de presentes estará disponível.
                   </p>
                 ) : (
-                  <div className="mx-auto grid max-w-4xl grid-cols-3 gap-2 sm:gap-6">
+                  <div className="mx-auto grid max-w-4xl grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-6">
                     {gifts.map((gift) => (
                       <div
                         key={gift.id}
-                        className="flex flex-col overflow-hidden rounded-xl border border-black/20 bg-white sm:rounded-2xl"
+                        className="flex flex-col overflow-hidden rounded-2xl border border-black/20 bg-white"
                       >
                         <div className="flex aspect-square items-center justify-center bg-white">
                           {gift.image ? (
@@ -166,12 +166,12 @@ export default function GiftListSection() {
                               className="h-full w-full object-cover"
                             />
                           ) : (
-                            <Gift className="h-8 w-8 text-black sm:h-12 sm:w-12" />
+                            <Gift className="h-12 w-12 text-black" />
                           )}
                         </div>
 
-                        <div className="flex flex-1 flex-col p-2 sm:p-5">
-                          <h3 className="font-body text-sm leading-tight text-black sm:text-2xl">
+                        <div className="flex flex-1 flex-col p-3 sm:p-5">
+                          <h3 className="font-body text-base leading-snug text-black sm:text-2xl">
                             {gift.name}
                           </h3>
                           {gift.description && (
@@ -179,7 +179,7 @@ export default function GiftListSection() {
                               {gift.description}
                             </p>
                           )}
-                          <p className="mt-2 font-numeros text-sm text-black sm:mt-4 sm:text-2xl">
+                          <p className="mt-3 font-numeros text-lg text-black sm:mt-4 sm:text-2xl">
                             {formatPrice(gift.price)}
                           </p>
 
@@ -188,7 +188,7 @@ export default function GiftListSection() {
                               setChosen(gift);
                               setError('');
                             }}
-                            className="mt-auto rounded-full border border-black px-2 py-1.5 font-body text-sm text-black transition hover:bg-black hover:text-white sm:mt-5 sm:px-6 sm:py-3 sm:text-xl"
+                            className="mt-auto rounded-full border border-black px-3 py-2 font-body text-base text-black transition hover:bg-black hover:text-white sm:mt-5 sm:px-6 sm:py-3 sm:text-xl"
                           >
                             Presentear
                           </button>
@@ -248,7 +248,7 @@ export default function GiftListSection() {
               <X className="h-6 w-6" />
             </button>
 
-            <h3 className="font-body text-2xl text-black">{chosen.name}</h3>
+            <h3 className="pr-8 font-body text-2xl leading-snug text-black">{chosen.name}</h3>
             <p className="mt-1 font-numeros text-2xl text-black">{formatPrice(chosen.price)}</p>
 
             <label className="mt-6 block font-body text-xl text-black">Seu nome</label>
