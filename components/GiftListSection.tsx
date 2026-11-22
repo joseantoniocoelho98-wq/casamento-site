@@ -107,7 +107,7 @@ export default function GiftListSection() {
     <section id="presentes" className="section-padding bg-white">
       <div className="section-container">
         {/* Frase antes da lista: deixa claro que presentear não é obrigação */}
-        <p className="mx-auto mb-4 max-w-xl text-center font-body text-xl text-black">
+         <p className="mx-auto mb-10 max-w-xl text-center font-body text-xl text-black md:mb-12">
           {giftInfo.title}
         </p>
 

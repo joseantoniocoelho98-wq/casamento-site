@@ -1,5 +1,5 @@
 export const giftInfo = {
-  title: 'Caso queira nos presentear…',
+  title: 'O maior presente é ter vocês conosco nesse dia tão especial! Mas se quiserem nos presentear, preparamos algumas opções simbólicas',
   // Escreva aqui o seu texto para os convidados
   message: 'Este é o nosso pix.',
   // Sua chave Pix
