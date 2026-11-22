@@ -7,10 +7,6 @@ import { motion } from 'framer-motion';
 export default function Hero() {
   const [imageError, setImageError] = useState(false);
 
-  const scrollToRSVP = () => {
-    document.getElementById('rsvp')?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
     <section className="relative h-[100svh] w-full overflow-hidden bg-black">
       {!imageError ? (
@@ -49,16 +45,6 @@ export default function Hero() {
         >
           09.01.2027
         </motion.p>
-
-        <motion.button
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          onClick={scrollToRSVP}
-          className="mt-6 rounded-full border border-white/70 bg-white/10 px-8 py-3 font-body text-xl text-white backdrop-blur-sm transition hover:bg-white/25"
-        >
-          Confirmar presença
-        </motion.button>
       </div>
     </section>
   );
