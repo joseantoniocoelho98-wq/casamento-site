@@ -106,6 +106,11 @@ export default function GiftListSection() {
   return (
     <section id="presentes" className="section-padding bg-white">
       <div className="section-container">
+        {/* Frase antes da lista: deixa claro que presentear não é obrigação */}
+        <p className="mx-auto mb-4 max-w-xl text-center font-body text-xl text-black">
+          {giftInfo.title}
+        </p>
+
         {/* Título clicável */}
         <button
           onClick={() => setOpen((v) => !v)}
@@ -201,8 +206,7 @@ export default function GiftListSection() {
 
               {/* Pix, ao final da lista */}
               <div className="mx-auto mt-14 max-w-xl border-t border-black pt-10 text-center">
-                <h3 className="font-display text-4xl text-black">{giftInfo.title}</h3>
-                <p className="mt-4 font-body text-xl text-black">{giftInfo.message}</p>
+                <p className="font-body text-xl text-black">{giftInfo.message}</p>
 
                 {!qrError && (
                   // eslint-disable-next-line @next/next/no-img-element
