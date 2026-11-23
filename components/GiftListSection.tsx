@@ -206,7 +206,8 @@ export default function GiftListSection() {
 
               {/* Pix, ao final da lista */}
               <div className="mx-auto mt-14 max-w-xl border-t border-black pt-10 text-center">
-                <p className="font-body text-xl text-black">{giftInfo.message}</p>
+                 <p className="mb-3 font-body text-xl text-black">Se pensou em outro valor</p>
+                 <p className="font-body text-xl text-black">{giftInfo.message}</p>
 
                 {!qrError && (
                   // eslint-disable-next-line @next/next/no-img-element
