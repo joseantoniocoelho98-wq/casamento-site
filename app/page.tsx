@@ -7,10 +7,12 @@ import VerseSection from '@/components/VerseSection';
 import RSVPSection from '@/components/RSVPSection';
 import AlbumSection from '@/components/AlbumSection';
 import GiftListSection from '@/components/GiftListSection';
+import CurtainIntro from '@/components/CurtainIntro';
 
 export default function Home() {
   return (
     <main>
+      <CurtainIntro />
       <Hero />
       <GuestGuideSection />
       <GiftListSection />
