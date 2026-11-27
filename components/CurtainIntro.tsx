@@ -5,17 +5,78 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 // Cor da cortina (o mesmo dourado dos títulos). Troque aqui se quiser outra.
 const CURTAIN_COLOR = '#C79122';
-// Duração da abertura, em segundos
-const OPEN_DURATION = 1.8;
+// Quantidade de "faixas de tecido" por lado: mais faixas = mais pregas
+const STRIPS = 8;
+// Duração do movimento de abertura, em segundos
+const OPEN_DURATION = 1.7;
+// Atraso entre uma faixa e a seguinte (o tecido é puxado do centro para fora)
+const STAGGER = 0.07;
 
-const curtainStyle = (side: 'left' | 'right') => ({
-  backgroundColor: CURTAIN_COLOR,
-  // Dobras do tecido + sombra no alto e embaixo
-  backgroundImage:
-    'repeating-linear-gradient(90deg, rgba(0,0,0,0.22) 0px, rgba(0,0,0,0) 26px, rgba(255,255,255,0.14) 52px, rgba(0,0,0,0.22) 78px), linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0) 18%, rgba(0,0,0,0) 80%, rgba(0,0,0,0.3))',
-  boxShadow:
-    side === 'left' ? '8px 0 24px rgba(0,0,0,0.35)' : '-8px 0 24px rgba(0,0,0,0.35)',
-});
+const SLOT = 100 / STRIPS; // largura de cada faixa, em % do lado da cortina
+const OVERLAP = 2.2; // cada faixa é mais larga que seu espaço, para as pregas se sobreporem
+const GATHER = 0.92; // quanto a cortina se junta nas laterais ao abrir
+const SQUEEZE = 0.3; // quanto cada faixa se comprime ao abrir
+
+type Side = 'left' | 'right';
+
+function Strip({ d, side, opening, onDone }: { d: number; side: Side; opening: boolean; onDone?: () => void }) {
+  // d = distância da borda da tela (0 = encostada na lateral, última = no centro)
+  const dir = side === 'left' ? -1 : 1;
+  const delay = (STRIPS - 1 - d) * STAGGER; // o centro se move primeiro
+  const gatherX = `${dir * d * ((GATHER * SLOT) / (OVERLAP * SLOT)) * 100}%`;
+
+  const closedAnim = {
+    x: 0,
+    scaleX: 1,
+    skewX: [0, 0.7 * dir, -0.7 * dir, 0],
+  };
+  const closedTransition = {
+    x: { duration: 0 },
+    scaleX: { duration: 0 },
+    skewX: {
+      duration: 5 + d * 0.35,
+      repeat: Infinity,
+      ease: 'easeInOut' as const,
+    },
+  };
+
+  const openAnim = {
+    x: gatherX,
+    scaleX: SQUEEZE,
+    // A parte de baixo fica para trás e balança, como um tecido de verdade
+    skewX: [0, -dir * 10, dir * 5, -dir * 3, 0],
+  };
+  const openTransition = {
+    x: { duration: OPEN_DURATION, delay, ease: [0.45, 0, 0.2, 1] as [number, number, number, number] },
+    scaleX: { duration: OPEN_DURATION, delay, ease: [0.45, 0, 0.2, 1] as [number, number, number, number] },
+    skewX: {
+      duration: OPEN_DURATION + 0.9,
+      delay,
+      times: [0, 0.3, 0.55, 0.8, 1],
+      ease: 'easeInOut' as const,
+    },
+  };
+
+  return (
+    <motion.div
+      className="absolute inset-y-0"
+      style={{
+        width: `${OVERLAP * SLOT}%`,
+        [side]: `${d * SLOT}%`,
+        transformOrigin: side === 'left' ? 'left top' : 'right top',
+        backgroundColor: CURTAIN_COLOR,
+        backgroundImage:
+          'linear-gradient(90deg, rgba(0,0,0,0.38) 0%, rgba(255,255,255,0.16) 30%, rgba(0,0,0,0.25) 62%, rgba(0,0,0,0.42) 100%), linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0) 15%, rgba(0,0,0,0) 82%, rgba(0,0,0,0.35))',
+        boxShadow: `${side === 'left' ? '' : '-'}6px 0 14px rgba(0,0,0,0.3)`,
+      }}
+      animate={opening ? openAnim : closedAnim}
+      transition={opening ? openTransition : closedTransition}
+      onAnimationComplete={() => {
+        if (opening && onDone) onDone();
+      }}
+    />
+  );
+}
 
 export default function CurtainIntro() {
   const [visible, setVisible] = useState(true);
@@ -44,6 +105,8 @@ export default function CurtainIntro() {
     if (!opening) setOpening(true);
   };
 
+  const indexes = Array.from({ length: STRIPS }, (_, i) => i);
+
   return (
     <AnimatePresence>
       {visible && (
@@ -61,25 +124,32 @@ export default function CurtainIntro() {
             }
           }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.4 }}
         >
           {/* Cortina esquerda */}
-          <motion.div
-            className="absolute inset-y-0 left-0 w-[50.5%]"
-            style={curtainStyle('left')}
-            animate={{ x: opening ? '-100%' : 0 }}
-            transition={{ duration: OPEN_DURATION, ease: [0.65, 0, 0.35, 1] }}
-            onAnimationComplete={() => {
-              if (opening) setVisible(false);
-            }}
-          />
+          <div className="absolute inset-y-0 left-0 w-[50.5%]">
+            {indexes.map((d) => (
+              <Strip key={`l${d}`} d={d} side="left" opening={opening} onDone={d === 0 ? () => setVisible(false) : undefined} />
+            ))}
+          </div>
 
           {/* Cortina direita */}
+          <div className="absolute inset-y-0 right-0 w-[50.5%]">
+            {indexes.map((d) => (
+              <Strip key={`r${d}`} d={d} side="right" opening={opening} />
+            ))}
+          </div>
+
+          {/* Varão no alto */}
           <motion.div
-            className="absolute inset-y-0 right-0 w-[50.5%]"
-            style={curtainStyle('right')}
-            animate={{ x: opening ? '100%' : 0 }}
-            transition={{ duration: OPEN_DURATION, ease: [0.65, 0, 0.35, 1] }}
+            className="absolute inset-x-0 top-0 h-3"
+            style={{
+              background:
+                'linear-gradient(to bottom, #f3d58a, #8a6213 60%, #5a3f0a)',
+              boxShadow: '0 4px 10px rgba(0,0,0,0.4)',
+            }}
+            animate={{ opacity: opening ? 0 : 1 }}
+            transition={{ duration: 0.6, delay: opening ? 1.2 : 0 }}
           />
 
           {/* Texto no centro */}
