@@ -3,56 +3,31 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
-// Cor da capa (o mesmo dourado dos títulos). Troque aqui se quiser outra.
+// Cor da capa. Troque aqui se quiser outra (ex.: couro marrom '#6B4226').
 const COVER_COLOR = '#C79122';
-// Frase abaixo da data. Troque pelo seu texto, ou deixe '' para não mostrar nada.
-const COVER_SUBTITLE = 'Uma história de amor';
+// Espessura da capa (em pixels): aparece nas laterais quando ela abre
+const DEPTH = 14;
+// Duração da abertura, em segundos
+const OPEN_DURATION = 1.8;
 
-const EASE: [number, number, number, number] = [0.5, 0, 0.2, 1];
+const TOTAL_MS = OPEN_DURATION * 1000 + 300;
 
-// As três folhas que viram: a capa e duas páginas (duração e atraso, em segundos)
-const SHEETS = [
-  { duration: 1.6, delay: 0 },
-  { duration: 1.4, delay: 0.35 },
-  { duration: 1.4, delay: 0.7 },
-];
-
-// Tempo total até a última folha terminar de virar (em milissegundos)
-const TOTAL_MS = Math.max(...SHEETS.map((s) => s.duration + s.delay)) * 1000 + 300;
-
-function Sheet({
-  index,
-  opening,
-  children,
-}: {
-  index: number;
-  opening: boolean;
-  children: React.ReactNode;
-}) {
-  const { duration, delay } = SHEETS[index];
-
-  return (
-    <motion.div
-      className="absolute inset-0"
-      style={{
-        zIndex: SHEETS.length - index,
-        transformOrigin: 'left center',
-        backfaceVisibility: 'hidden',
-        WebkitBackfaceVisibility: 'hidden',
-      }}
-      animate={{ rotateY: opening ? -100 : 0 }}
-      transition={{ duration, delay, ease: EASE }}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
-const pageStyle = {
-  backgroundColor: '#FBF3DC',
-  backgroundImage:
-    'linear-gradient(90deg, rgba(0,0,0,0.18), rgba(0,0,0,0) 14%), repeating-linear-gradient(to bottom, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 31px, rgba(0,0,0,0.05) 31px, rgba(0,0,0,0.05) 32px)',
+// Textura de couro: grão fino + manchas maiores, geradas sem usar nenhuma imagem
+const noise = (frequency: number, alpha: number, size: number) => {
+  const svg =
+    `<svg xmlns='http://www.w3.org/2000/svg' width='${size}' height='${size}'>` +
+    `<filter id='n'><feTurbulence type='fractalNoise' baseFrequency='${frequency}' numOctaves='3' stitchTiles='stitch'/>` +
+    `<feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 ${alpha} 0'/></filter>` +
+    `<rect width='100%' height='100%' filter='url(#n)'/></svg>`;
+  return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
 };
+
+const LEATHER = [
+  noise(0.9, 0.7, 240),
+  noise(0.05, 0.35, 600),
+  'radial-gradient(ellipse at 35% 25%, rgba(255,255,255,0.2), rgba(255,255,255,0) 55%)',
+  'radial-gradient(ellipse at 85% 95%, rgba(0,0,0,0.28), rgba(0,0,0,0) 60%)',
+].join(', ');
 
 export default function CurtainIntro() {
   const [visible, setVisible] = useState(true);
@@ -77,7 +52,7 @@ export default function CurtainIntro() {
     };
   }, [visible]);
 
-  // Depois que as folhas terminam de virar, remove tudo
+  // Depois que a capa termina de abrir, remove tudo
   useEffect(() => {
     if (!opening) return;
     const timer = setTimeout(() => setVisible(false), TOTAL_MS);
@@ -107,58 +82,77 @@ export default function CurtainIntro() {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4 }}
         >
-          {/* Página 2 (a última a virar) */}
-          <Sheet index={2} opening={opening}>
-            <div className="h-full w-full" style={pageStyle} />
-          </Sheet>
-
-          {/* Página 1 */}
-          <Sheet index={1} opening={opening}>
-            <div className="h-full w-full" style={pageStyle} />
-          </Sheet>
-
-          {/* Capa */}
-          <Sheet index={0} opening={opening}>
+          {/* A capa inteira gira pela lombada (lado esquerdo) */}
+          <motion.div
+            className="absolute inset-0"
+            style={{ transformOrigin: 'left center', transformStyle: 'preserve-3d' }}
+            animate={opening ? { rotateY: -100 } : { rotateY: [0, -2.5, 0] }}
+            transition={
+              opening
+                ? { duration: OPEN_DURATION, ease: [0.5, 0, 0.2, 1] }
+                : { duration: 3.2, repeat: Infinity, ease: 'easeInOut' }
+            }
+          >
+            {/* Frente da capa */}
             <div
-              className="relative h-full w-full"
+              className="absolute inset-0"
               style={{
+                transform: `translateZ(${DEPTH / 2}px)`,
+                backfaceVisibility: 'hidden',
+                WebkitBackfaceVisibility: 'hidden',
                 backgroundColor: COVER_COLOR,
-                backgroundImage:
-                  'radial-gradient(ellipse at 40% 30%, rgba(255,255,255,0.22), rgba(255,255,255,0) 60%), radial-gradient(ellipse at 80% 90%, rgba(0,0,0,0.3), rgba(0,0,0,0) 60%)',
+                backgroundImage: LEATHER,
+                boxShadow:
+                  'inset 0 0 90px rgba(0,0,0,0.4), inset 0 0 0 3px rgba(255,255,255,0.18)',
               }}
             >
-              {/* Lombada */}
+              {/* Junta da lombada */}
               <div
-                className="absolute inset-y-0 left-0 w-5 md:w-8"
+                className="absolute inset-y-0 left-0 w-6 md:w-10"
                 style={{
                   background:
-                    'linear-gradient(90deg, rgba(0,0,0,0.45), rgba(0,0,0,0.05) 70%, rgba(255,255,255,0.15))',
+                    'linear-gradient(90deg, rgba(0,0,0,0.5), rgba(0,0,0,0.12) 45%, rgba(255,255,255,0.18) 60%, rgba(0,0,0,0.25))',
                 }}
               />
 
-              {/* Moldura */}
-              <div className="absolute inset-6 border-2 border-white/70 md:inset-10" />
-              <div className="absolute inset-8 border border-white/40 md:inset-12" />
-
-              {/* Título */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center px-10 text-center">
-                <h1 className="font-display text-6xl text-white drop-shadow-lg md:text-8xl">
-                  José &amp; Ianca
-                </h1>
-                <p className="mt-4 font-numeros text-2xl tracking-widest text-white drop-shadow-lg md:text-3xl">
-                  09.01.2027
-                </p>
-                {COVER_SUBTITLE && (
-                  <p className="mt-6 font-body text-xl text-white drop-shadow-lg">
-                    {COVER_SUBTITLE}
-                  </p>
-                )}
-                <p className="mt-12 animate-pulse font-body text-xl text-white drop-shadow-lg">
-                  Toque para abrir
-                </p>
-              </div>
+              {/* Moldura em relevo, sem texto */}
+              <div
+                className="absolute inset-8 md:inset-14"
+                style={{
+                  boxShadow:
+                    'inset 0 0 0 2px rgba(0,0,0,0.28), 0 0 0 2px rgba(255,255,255,0.28), 0 3px 6px rgba(0,0,0,0.25)',
+                }}
+              />
+              <div
+                className="absolute inset-12 md:inset-[4.5rem]"
+                style={{
+                  boxShadow: 'inset 0 0 0 1px rgba(0,0,0,0.22), 0 0 0 1px rgba(255,255,255,0.2)',
+                }}
+              />
             </div>
-          </Sheet>
+
+            {/* Lateral direita (a espessura da capa) */}
+            <div
+              className="absolute inset-y-0"
+              style={{
+                width: DEPTH,
+                right: -DEPTH / 2,
+                transform: 'rotateY(90deg)',
+                background: `linear-gradient(90deg, #6e4d0c, ${COVER_COLOR} 50%, #6e4d0c)`,
+              }}
+            />
+
+            {/* Verso (parte de dentro da capa) */}
+            <div
+              className="absolute inset-0"
+              style={{
+                transform: `translateZ(${-DEPTH / 2}px) rotateY(180deg)`,
+                backfaceVisibility: 'hidden',
+                WebkitBackfaceVisibility: 'hidden',
+                backgroundColor: '#FBF3DC',
+              }}
+            />
+          </motion.div>
         </motion.div>
       )}
     </AnimatePresence>
