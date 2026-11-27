@@ -3,74 +3,164 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
-// Cor da cortina (o mesmo dourado dos títulos). Troque aqui se quiser outra.
-const CURTAIN_COLOR = '#C79122';
-// Quantidade de "faixas de tecido" por lado: mais faixas = mais pregas
-const STRIPS = 8;
-// Duração do movimento de abertura, em segundos
-const OPEN_DURATION = 1.7;
-// Atraso entre uma faixa e a seguinte (o tecido é puxado do centro para fora)
-const STAGGER = 0.07;
-// Tempo extra do balanço final, em segundos
-const SWAY_EXTRA = 0.9;
+// Cor da capa (o mesmo dourado dos títulos). Troque aqui se quiser outra.
+const COVER_COLOR = '#C79122';
+// Frase abaixo da data. Troque pelo seu texto, ou deixe '' para não mostrar nada.
+const COVER_SUBTITLE = 'Uma história de amor';
 
-const SLOT = 100 / STRIPS; // largura de cada faixa, em % do lado da cortina
-const OVERLAP = 2.2; // cada faixa é mais larga que seu espaço, para as pregas se sobreporem
-const GATHER = 0.92; // quanto a cortina se junta nas laterais ao abrir
-const SQUEEZE = 0.3; // quanto cada faixa se comprime ao abrir
+const EASE: [number, number, number, number] = [0.5, 0, 0.2, 1];
 
-// Tempo total até a cortina terminar de abrir (em milissegundos)
-const TOTAL_MS = ((STRIPS - 1) * STAGGER + OPEN_DURATION + SWAY_EXTRA) * 1000 + 100;
+// As três folhas que viram: a capa e duas páginas (duração e atraso, em segundos)
+const SHEETS = [
+  { duration: 1.6, delay: 0 },
+  { duration: 1.4, delay: 0.35 },
+  { duration: 1.4, delay: 0.7 },
+];
 
-type Side = 'left' | 'right';
+// Tempo total até a última folha terminar de virar (em milissegundos)
+const TOTAL_MS = Math.max(...SHEETS.map((s) => s.duration + s.delay)) * 1000 + 300;
 
-const EASE: [number, number, number, number] = [0.45, 0, 0.2, 1];
-
-function Strip({ d, side, opening }: { d: number; side: Side; opening: boolean }) {
-  // d = distância da borda da tela (0 = encostada na lateral, última = no centro)
-  const dir = side === 'left' ? -1 : 1;
-  const delay = (STRIPS - 1 - d) * STAGGER; // o centro se move primeiro
-  const gatherX = `${dir * d * ((GATHER * SLOT) / (OVERLAP * SLOT)) * 100}%`;
-
-  const closedAnim = {
-    x: '0%',
-    scaleX: 1,
-    skewX: [0, 0.7 * dir, -0.7 * dir, 0],
-  };
-  const closedTransition = {
-    x: { duration: 0 },
-    scaleX: { duration: 0 },
-    skewX: {
-      duration: 5 + d * 0.35,
-      repeat: Infinity,
-      ease: 'easeInOut' as const,
-    },
-  };
-
-  const openAnim = {
-    x: gatherX,
-    scaleX: SQUEEZE,
-    // A parte de baixo fica para trás e balança, como um tecido de verdade
-    skewX: [0, -dir * 10, dir * 5, -dir * 3, 0],
-  };
-  const openTransition = {
-    x: { duration: OPEN_DURATION, delay, ease: EASE },
-    scaleX: { duration: OPEN_DURATION, delay, ease: EASE },
-    skewX: {
-      duration: OPEN_DURATION + SWAY_EXTRA,
-      delay,
-      times: [0, 0.3, 0.55, 0.8, 1],
-      ease: 'easeInOut' as const,
-    },
-  };
+function Sheet({
+  index,
+  opening,
+  children,
+}: {
+  index: number;
+  opening: boolean;
+  children: React.ReactNode;
+}) {
+  const { duration, delay } = SHEETS[index];
 
   return (
     <motion.div
-      className="absolute inset-y-0"
+      className="absolute inset-0"
       style={{
-        width: `${OVERLAP * SLOT}%`,
-        [side]: `${d * SLOT}%`,
-        transformOrigin: side === 'left' ? 'left top' : 'right top',
-        backgroundColor: CURTAIN_COLOR,
-        backgroundImage:
-          'linear-gradient(90deg, rgba(0,0,0,0.38) 0%, rgba(255,255,255,0.16) 30%, rgba(0,0,0,0.25) 62%, rgba(0,0,0,0.42) 100%), linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0) 15%, rgba(0,0,0,0) 82%,
+        zIndex: SHEETS.length - index,
+        transformOrigin: 'left center',
+        backfaceVisibility: 'hidden',
+        WebkitBackfaceVisibility: 'hidden',
+      }}
+      animate={{ rotateY: opening ? -100 : 0 }}
+      transition={{ duration, delay, ease: EASE }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+const pageStyle = {
+  backgroundColor: '#FBF3DC',
+  backgroundImage:
+    'linear-gradient(90deg, rgba(0,0,0,0.18), rgba(0,0,0,0) 14%), repeating-linear-gradient(to bottom, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 31px, rgba(0,0,0,0.05) 31px, rgba(0,0,0,0.05) 32px)',
+};
+
+export default function CurtainIntro() {
+  const [visible, setVisible] = useState(true);
+  const [opening, setOpening] = useState(false);
+
+  // Não mostra a capa quando o link já aponta para uma seção (ex.: QR code do álbum),
+  // ao voltar do pagamento ou no modo administrador
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (window.location.hash || params.has('presente') || params.has('admin')) {
+      setVisible(false);
+    }
+  }, []);
+
+  // Trava a rolagem enquanto a capa está fechada
+  useEffect(() => {
+    if (!visible) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [visible]);
+
+  // Depois que as folhas terminam de virar, remove tudo
+  useEffect(() => {
+    if (!opening) return;
+    const timer = setTimeout(() => setVisible(false), TOTAL_MS);
+    return () => clearTimeout(timer);
+  }, [opening]);
+
+  const open = () => {
+    if (!opening) setOpening(true);
+  };
+
+  return (
+    <AnimatePresence>
+      {visible && (
+        <motion.div
+          key="book-cover"
+          className="fixed inset-0 z-[100] cursor-pointer overflow-hidden [perspective:2200px]"
+          role="button"
+          tabIndex={0}
+          aria-label="Abrir livro"
+          onClick={open}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              open();
+            }
+          }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.4 }}
+        >
+          {/* Página 2 (a última a virar) */}
+          <Sheet index={2} opening={opening}>
+            <div className="h-full w-full" style={pageStyle} />
+          </Sheet>
+
+          {/* Página 1 */}
+          <Sheet index={1} opening={opening}>
+            <div className="h-full w-full" style={pageStyle} />
+          </Sheet>
+
+          {/* Capa */}
+          <Sheet index={0} opening={opening}>
+            <div
+              className="relative h-full w-full"
+              style={{
+                backgroundColor: COVER_COLOR,
+                backgroundImage:
+                  'radial-gradient(ellipse at 40% 30%, rgba(255,255,255,0.22), rgba(255,255,255,0) 60%), radial-gradient(ellipse at 80% 90%, rgba(0,0,0,0.3), rgba(0,0,0,0) 60%)',
+              }}
+            >
+              {/* Lombada */}
+              <div
+                className="absolute inset-y-0 left-0 w-5 md:w-8"
+                style={{
+                  background:
+                    'linear-gradient(90deg, rgba(0,0,0,0.45), rgba(0,0,0,0.05) 70%, rgba(255,255,255,0.15))',
+                }}
+              />
+
+              {/* Moldura */}
+              <div className="absolute inset-6 border-2 border-white/70 md:inset-10" />
+              <div className="absolute inset-8 border border-white/40 md:inset-12" />
+
+              {/* Título */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center px-10 text-center">
+                <h1 className="font-display text-6xl text-white drop-shadow-lg md:text-8xl">
+                  José &amp; Ianca
+                </h1>
+                <p className="mt-4 font-numeros text-2xl tracking-widest text-white drop-shadow-lg md:text-3xl">
+                  09.01.2027
+                </p>
+                {COVER_SUBTITLE && (
+                  <p className="mt-6 font-body text-xl text-white drop-shadow-lg">
+                    {COVER_SUBTITLE}
+                  </p>
+                )}
+                <p className="mt-12 animate-pulse font-body text-xl text-white drop-shadow-lg">
+                  Toque para abrir
+                </p>
+              </div>
+            </div>
+          </Sheet>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
