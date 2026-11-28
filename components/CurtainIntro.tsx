@@ -1,37 +1,45 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { Volume2, VolumeX } from 'lucide-react';
 
-// Cor da capa. Troque aqui se quiser outra (ex.: couro marrom '#6B4226').
-const COVER_COLOR = '#C79122';
-// Espessura da capa (em pixels): aparece nas laterais quando ela abre
-const DEPTH = 14;
-// Duração da abertura, em segundos
-const OPEN_DURATION = 1.8;
+// Cor do papel do convite
+const PAPER_COLOR = '#FAF4E4';
+// Cor do texto e do filete (o mesmo dourado dos títulos)
+const GOLD = '#C79122';
+// Música: coloque o arquivo em public/audio/ com este nome
+const MUSIC_SRC = '/audio/musica.mp3';
+const MUSIC_VOLUME = 0.6;
 
-const TOTAL_MS = OPEN_DURATION * 1000 + 300;
+// Tempos, em segundos
+const COVER_DURATION = 1.5; // a capa girando
+const FADE_DELAY = 0.7; // quando o fundo começa a sumir
+const FADE_DURATION = 1.3; // o site surgindo suavemente
 
-// Textura de couro: grão fino + manchas maiores, geradas sem usar nenhuma imagem
-const noise = (frequency: number, alpha: number, size: number) => {
+const TOTAL_MS = Math.max(COVER_DURATION, FADE_DELAY + FADE_DURATION) * 1000 + 300;
+
+// Textura de papel: grão bem leve, gerado sem usar nenhuma imagem
+const PAPER_GRAIN = (() => {
   const svg =
-    `<svg xmlns='http://www.w3.org/2000/svg' width='${size}' height='${size}'>` +
-    `<filter id='n'><feTurbulence type='fractalNoise' baseFrequency='${frequency}' numOctaves='3' stitchTiles='stitch'/>` +
-    `<feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 ${alpha} 0'/></filter>` +
-    `<rect width='100%' height='100%' filter='url(#n)'/></svg>`;
+    "<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'>" +
+    "<filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/>" +
+    "<feColorMatrix values='0 0 0 0 0.4  0 0 0 0 0.3  0 0 0 0 0.1  0 0 0 0.12 0'/></filter>" +
+    "<rect width='100%' height='100%' filter='url(#n)'/></svg>";
   return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
-};
+})();
 
-const LEATHER = [
-  noise(0.9, 0.7, 240),
-  noise(0.05, 0.35, 600),
-  'radial-gradient(ellipse at 35% 25%, rgba(255,255,255,0.2), rgba(255,255,255,0) 55%)',
-  'radial-gradient(ellipse at 85% 95%, rgba(0,0,0,0.28), rgba(0,0,0,0) 60%)',
-].join(', ');
+const paperStyle = {
+  backgroundColor: PAPER_COLOR,
+  backgroundImage: PAPER_GRAIN,
+};
 
 export default function CurtainIntro() {
   const [visible, setVisible] = useState(true);
   const [opening, setOpening] = useState(false);
+  const [playing, setPlaying] = useState(false);
+  const [hasMusic, setHasMusic] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   // Não mostra a capa quando o link já aponta para uma seção (ex.: QR code do álbum),
   // ao voltar do pagamento ou no modo administrador
@@ -40,6 +48,19 @@ export default function CurtainIntro() {
     if (window.location.hash || params.has('presente') || params.has('admin')) {
       setVisible(false);
     }
+  }, []);
+
+  // Prepara a música enquanto a capa está fechada
+  useEffect(() => {
+    const audio = new Audio(MUSIC_SRC);
+    audio.loop = true;
+    audio.preload = 'auto';
+    audio.volume = MUSIC_VOLUME;
+    audioRef.current = audio;
+    return () => {
+      audio.pause();
+      audioRef.current = null;
+    };
   }, []);
 
   // Trava a rolagem enquanto a capa está fechada
@@ -60,101 +81,111 @@ export default function CurtainIntro() {
   }, [opening]);
 
   const open = () => {
-    if (!opening) setOpening(true);
+    if (opening) return;
+    setOpening(true);
+
+    // O clique do convidado libera o som no navegador
+    const audio = audioRef.current;
+    if (audio) {
+      audio
+        .play()
+        .then(() => {
+          setPlaying(true);
+          setHasMusic(true);
+        })
+        .catch(() => setHasMusic(false));
+    }
+  };
+
+  const toggleMusic = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    if (audio.paused) {
+      audio.play().then(() => setPlaying(true)).catch(() => {});
+    } else {
+      audio.pause();
+      setPlaying(false);
+    }
   };
 
   return (
-    <AnimatePresence>
-      {visible && (
-        <motion.div
-          key="book-cover"
-          className="fixed inset-0 z-[100] cursor-pointer overflow-hidden [perspective:2200px]"
-          role="button"
-          tabIndex={0}
-          aria-label="Abrir livro"
-          onClick={open}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              open();
-            }
-          }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.4 }}
-        >
-          {/* A capa inteira gira pela lombada (lado esquerdo) */}
+    <>
+      <AnimatePresence>
+        {visible && (
           <motion.div
-            className="absolute inset-0"
-            style={{ transformOrigin: 'left center', transformStyle: 'preserve-3d' }}
-            animate={opening ? { rotateY: -100 } : { rotateY: [0, -2.5, 0] }}
-            transition={
-              opening
-                ? { duration: OPEN_DURATION, ease: [0.5, 0, 0.2, 1] }
-                : { duration: 3.2, repeat: Infinity, ease: 'easeInOut' }
-            }
+            key="invite-cover"
+            className="fixed inset-0 z-[100] cursor-pointer overflow-hidden [perspective:2200px]"
+            style={{ pointerEvents: opening ? 'none' : 'auto' }}
+            role="button"
+            tabIndex={0}
+            aria-label="Abrir convite"
+            onClick={open}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                open();
+              }
+            }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
           >
-            {/* Frente da capa */}
-            <div
+            {/* Fundo: some aos poucos e deixa o site surgir com fade */}
+            <motion.div
+              className="absolute inset-0"
+              style={paperStyle}
+              animate={{ opacity: opening ? 0 : 1 }}
+              transition={{ duration: FADE_DURATION, delay: opening ? FADE_DELAY : 0, ease: 'easeInOut' }}
+            />
+
+            {/* Capa do convite: fina, gira pela lateral esquerda */}
+            <motion.div
               className="absolute inset-0"
               style={{
-                transform: `translateZ(${DEPTH / 2}px)`,
+                ...paperStyle,
+                transformOrigin: 'left center',
                 backfaceVisibility: 'hidden',
                 WebkitBackfaceVisibility: 'hidden',
-                backgroundColor: COVER_COLOR,
-                backgroundImage: LEATHER,
-                boxShadow:
-                  'inset 0 0 90px rgba(0,0,0,0.4), inset 0 0 0 3px rgba(255,255,255,0.18)',
+                boxShadow: '0 0 50px rgba(0,0,0,0.25)',
               }}
+              animate={{ rotateY: opening ? -105 : 0 }}
+              transition={{ duration: COVER_DURATION, ease: [0.5, 0, 0.2, 1] }}
             >
-              {/* Junta da lombada */}
+              {/* Filete dourado */}
               <div
-                className="absolute inset-y-0 left-0 w-6 md:w-10"
-                style={{
-                  background:
-                    'linear-gradient(90deg, rgba(0,0,0,0.5), rgba(0,0,0,0.12) 45%, rgba(255,255,255,0.18) 60%, rgba(0,0,0,0.25))',
-                }}
+                className="absolute inset-5 md:inset-10"
+                style={{ border: `1px solid ${GOLD}`, opacity: 0.7 }}
               />
 
-              {/* Moldura em relevo, sem texto */}
-              <div
-                className="absolute inset-8 md:inset-14"
-                style={{
-                  boxShadow:
-                    'inset 0 0 0 2px rgba(0,0,0,0.28), 0 0 0 2px rgba(255,255,255,0.28), 0 3px 6px rgba(0,0,0,0.25)',
-                }}
-              />
-              <div
-                className="absolute inset-12 md:inset-[4.5rem]"
-                style={{
-                  boxShadow: 'inset 0 0 0 1px rgba(0,0,0,0.22), 0 0 0 1px rgba(255,255,255,0.2)',
-                }}
-              />
-            </div>
-
-            {/* Lateral direita (a espessura da capa) */}
-            <div
-              className="absolute inset-y-0"
-              style={{
-                width: DEPTH,
-                right: -DEPTH / 2,
-                transform: 'rotateY(90deg)',
-                background: `linear-gradient(90deg, #6e4d0c, ${COVER_COLOR} 50%, #6e4d0c)`,
-              }}
-            />
-
-            {/* Verso (parte de dentro da capa) */}
-            <div
-              className="absolute inset-0"
-              style={{
-                transform: `translateZ(${-DEPTH / 2}px) rotateY(180deg)`,
-                backfaceVisibility: 'hidden',
-                WebkitBackfaceVisibility: 'hidden',
-                backgroundColor: '#FBF3DC',
-              }}
-            />
+              <div className="absolute inset-0 flex flex-col items-center justify-center px-8 text-center">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/logo.png"
+                  alt="José e Ianca"
+                  className="w-[62vw] max-w-[380px]"
+                />
+                <p
+                  className="mt-8 animate-pulse font-body text-xl tracking-wide"
+                  style={{ color: GOLD }}
+                >
+                  Clique para abrir
+                </p>
+              </div>
+            </motion.div>
           </motion.div>
-        </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Botão para ligar ou desligar a música */}
+      {hasMusic && !visible && (
+        <button
+          onClick={toggleMusic}
+          aria-label={playing ? 'Desligar música' : 'Ligar música'}
+          className="fixed bottom-4 right-4 z-40 flex h-11 w-11 items-center justify-center rounded-full border bg-white/90 shadow"
+          style={{ borderColor: GOLD, color: GOLD }}
+        >
+          {playing ? <Volume2 size={22} /> : <VolumeX size={22} />}
+        </button>
       )}
-    </AnimatePresence>
+    </>
   );
 }
